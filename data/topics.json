@@ -1,0 +1,1644 @@
+[
+	{
+		"id": "ai-intro",
+		"title": "Introduction to Artificial Intelligence",
+		"subtitle": "What AI is, where it fits, and why it matters.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "Artificial Intelligence (AI) is the field of building systems that can perceive, reason, learn, and act. It spans rule-based systems, statistical learning, and modern deep learning. The goal is not just automation, but decision-making that improves with data.",
+		"sections": [
+			{
+				"title": "Why AI now?",
+				"content": "AI adoption is accelerating due to better data pipelines, cheaper compute, and stronger algorithms. Businesses use AI to personalize experiences, automate workflows, and improve decision quality."
+			},
+			{
+				"title": "Where AI shows up",
+				"content": "AI powers recommendations, fraud detection, language translation, medical imaging, code assistants, and smart devices. Understanding the basics helps you evaluate real-world systems responsibly."
+			}
+		],
+		"tabs": [
+			{
+				"id": "ai-intro-concepts",
+				"title": "Core Concepts",
+				"description": "AI involves perception (input), reasoning (decisions), and learning (improving over time). It uses data and algorithms to solve problems that are hard to capture with fixed rules.",
+				"bullets": [
+					"Narrow AI solves specific tasks",
+					"General AI is a long-term research goal",
+					"Learning can be supervised, unsupervised, or reinforcement-based"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract technology network with glowing nodes"
+			},
+			{
+				"id": "ai-intro-lifecycle",
+				"title": "AI Lifecycle",
+				"description": "Successful AI products move from data collection to training, evaluation, deployment, and monitoring. Each step reduces risk and improves reliability.",
+				"bullets": [
+					"Define the business problem and success metrics",
+					"Collect, clean, and label the right data",
+					"Monitor drift and feedback loops after launch"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Laptop with code on screen"
+			},
+			{
+				"id": "ai-intro-impact",
+				"title": "Real-World Impact",
+				"description": "AI changes how people work. It can improve productivity but also introduces fairness and privacy concerns that must be addressed early.",
+				"bullets": [
+					"Use AI to augment, not replace, human judgment",
+					"Audit for bias and test across user groups",
+					"Document data sources and model limitations"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team collaboration around a table"
+			}
+		],
+		"resources": [
+			{
+				"title": "What is Artificial Intelligence?",
+				"description": "A clear introduction to AI definitions, history, and examples.",
+				"url": "https://www.geeksforgeeks.org/what-is-artificial-intelligence/",
+				"source": "GeeksforGeeks"
+			},
+			{
+				"title": "AI vs ML vs DL",
+				"description": "Understand how AI relates to machine learning and deep learning.",
+				"url": "https://www.geeksforgeeks.org/difference-between-artificial-intelligence-and-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Crash Course: Intro to AI",
+				"channel": "CrashCourse",
+				"url": "https://www.youtube.com/watch?v=JMUxmLyrhSk",
+				"thumbnail": "https://img.youtube.com/vi/JMUxmLyrhSk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-ethics",
+		"title": "AI Ethics and Bias",
+		"subtitle": "Designing AI systems that are fair, transparent, and safe.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "35 min",
+		"content": "Ethical AI focuses on fairness, accountability, privacy, and transparency. Bias can enter from data, modeling decisions, or deployment context, so review each stage carefully.",
+		"tabs": [
+			{
+				"id": "ethics-risks",
+				"title": "Common Risks",
+				"description": "AI can amplify historical bias, over-collect data, or automate harmful decisions. Managing risk means proactive analysis and continuous oversight.",
+				"bullets": [
+					"Representation bias in datasets",
+					"Opaque model decisions",
+					"Privacy leaks from training data"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code and UI on a laptop"
+			},
+			{
+				"id": "ethics-practices",
+				"title": "Best Practices",
+				"description": "Build guardrails early. Use fairness checks, human-in-the-loop reviews, and model cards to document behavior.",
+				"bullets": [
+					"Audit data for imbalance and outliers",
+					"Explain predictions in user-friendly terms",
+					"Set monitoring alerts for harmful outputs"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Circuit board close-up"
+			},
+			{
+				"id": "ethics-governance",
+				"title": "Governance",
+				"description": "Policies, reviews, and documentation keep AI aligned with user trust and regulatory requirements.",
+				"bullets": [
+					"Maintain clear data usage policies",
+					"Log model versions and changes",
+					"Create escalation paths for issues"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Business meeting with papers"
+			}
+		],
+		"resources": [
+			{
+				"title": "Fairness in Machine Learning",
+				"description": "Overview of bias sources and mitigation techniques.",
+				"url": "https://www.geeksforgeeks.org/bias-and-variance-in-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "model-evaluation",
+		"title": "Model Evaluation Metrics",
+		"subtitle": "Measure model quality with the right metrics.",
+		"category": "Machine Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "45 min",
+		"content": "Choosing the right metric is essential. Accuracy alone can be misleading, especially with imbalanced data. Use precision, recall, F1-score, and ROC-AUC to understand real performance.",
+		"sections": [
+			{
+				"title": "Classification metrics",
+				"content": "Precision focuses on correctness of positive predictions, while recall focuses on capturing actual positives. F1 balances both when trade-offs matter."
+			},
+			{
+				"title": "Regression metrics",
+				"content": "MAE, MSE, and RMSE show average error magnitude. R2 explains how much variance the model captures."
+			}
+		],
+		"tabs": [
+			{
+				"id": "eval-matrix",
+				"title": "Confusion Matrix",
+				"description": "The confusion matrix breaks predictions into true positives, false positives, true negatives, and false negatives. It is the foundation for most classification metrics.",
+				"bullets": [
+					"High false positives can hurt trust",
+					"High false negatives can miss critical cases",
+					"Always review error types"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract data visualization"
+			},
+			{
+				"id": "eval-imbalance",
+				"title": "Imbalanced Data",
+				"description": "For rare events, accuracy can be high even when the model is wrong most of the time. Precision, recall, and PR curves are better choices.",
+				"bullets": [
+					"Use stratified splits",
+					"Track class-level performance",
+					"Consider cost-sensitive learning"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517142089942-ba376ce32a0c?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Charts on a tablet"
+			},
+			{
+				"id": "eval-thresholds",
+				"title": "Threshold Tuning",
+				"description": "Many models output probabilities. Adjust the threshold to meet business constraints, such as safety or fraud detection targets.",
+				"bullets": [
+					"Set thresholds based on cost",
+					"Calibrate probabilities",
+					"Validate on fresh data"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Notebook and analytics"
+			}
+		],
+		"resources": [
+			{
+				"title": "Precision and Recall in ML",
+				"description": "Detailed explanation with examples.",
+				"url": "https://www.geeksforgeeks.org/precision-and-recall-in-ml/",
+				"source": "GeeksforGeeks"
+			},
+			{
+				"title": "Confusion Matrix",
+				"description": "How to build and interpret confusion matrices.",
+				"url": "https://www.geeksforgeeks.org/confusion-matrix-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Gradient Descent, Step-by-Step",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=IHZwWFHWa-w",
+				"thumbnail": "https://img.youtube.com/vi/IHZwWFHWa-w/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "embeddings",
+		"title": "Embeddings and Semantic Search",
+		"subtitle": "Turn language into vectors that capture meaning.",
+		"category": "NLP",
+		"difficulty": "Intermediate",
+		"estimatedTime": "50 min",
+		"content": "Embeddings map text into numeric vectors that preserve semantic meaning. Similar ideas and words end up close in vector space, enabling search, clustering, and recommendation.",
+		"sections": [
+			{
+				"title": "Why embeddings matter",
+				"content": "Keyword search misses context. Embeddings allow similarity search that captures intent, not just exact words."
+			}
+		],
+		"tabs": [
+			{
+				"id": "embed-concept",
+				"title": "Concept",
+				"description": "Embeddings represent text, images, or users as vectors. Distances in this space reflect similarity, making them essential for retrieval and recommendation.",
+				"bullets": [
+					"Vector space captures meaning",
+					"Similarity measured by cosine distance",
+					"Works across text, audio, and images"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Colorful gradient background"
+			},
+			{
+				"id": "embed-workflow",
+				"title": "Workflow",
+				"description": "Create embeddings, store them in a vector database, and query using similarity. Retrieval can be combined with re-ranking for better results.",
+				"bullets": [
+					"Generate embeddings from a model",
+					"Store vectors with metadata",
+					"Retrieve top-k matches and rerank"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract network lines"
+			},
+			{
+				"id": "embed-usecases",
+				"title": "Use Cases",
+				"description": "Embeddings power semantic search, recommendations, and content clustering. They are also used in RAG pipelines for LLMs.",
+				"bullets": [
+					"Semantic search across documents",
+					"Content recommendations",
+					"Duplicate or near-duplicate detection"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Server racks and lights"
+			}
+		],
+		"resources": [
+			{
+				"title": "Word Embedding",
+				"description": "Intro to embedding concepts and applications.",
+				"url": "https://www.geeksforgeeks.org/word-embedding/",
+				"source": "GeeksforGeeks"
+			},
+			{
+				"title": "NLP Introduction",
+				"description": "Fundamentals of NLP tasks and techniques.",
+				"url": "https://www.geeksforgeeks.org/introduction-to-natural-language-processing/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "nlp"
+	},
+	{
+		"id": "neural-networks",
+		"title": "Neural Networks",
+		"subtitle": "Understand perceptrons, layers, and activation functions.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "55 min",
+		"content": "Neural networks are layers of interconnected nodes that learn patterns from data. Each layer transforms inputs using weights, biases, and nonlinear activation functions.",
+		"tabs": [
+			{
+				"id": "nn-basics",
+				"title": "Building Blocks",
+				"description": "A neuron computes a weighted sum and applies an activation function. Stacking neurons creates expressive models.",
+				"bullets": [
+					"Weights and biases encode knowledge",
+					"Activations add non-linearity",
+					"Depth improves representation power"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract network visualization"
+			},
+			{
+				"id": "nn-training",
+				"title": "Training Loop",
+				"description": "Training uses forward pass, loss calculation, backpropagation, and optimization. Iterations update weights to reduce error.",
+				"bullets": [
+					"Use mini-batches for efficiency",
+					"Regularize to avoid overfitting",
+					"Track validation loss"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code on a screen"
+			},
+			{
+				"id": "nn-activation",
+				"title": "Activation Functions",
+				"description": "ReLU is common for hidden layers. Sigmoid and softmax are used for probabilities. Choose activations based on the task.",
+				"bullets": [
+					"ReLU for speed and stability",
+					"Sigmoid for binary outputs",
+					"Softmax for multi-class outputs"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team analyzing data"
+			}
+		],
+		"resources": [
+			{
+				"title": "Artificial Neural Networks",
+				"description": "Key concepts and learning workflow.",
+				"url": "https://www.geeksforgeeks.org/artificial-neural-networks-and-its-applications/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			},
+			{
+				"title": "Gradient Descent, Step-by-Step",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=IHZwWFHWa-w",
+				"thumbnail": "https://img.youtube.com/vi/IHZwWFHWa-w/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "cnn",
+		"title": "Convolutional Neural Networks",
+		"subtitle": "How CNNs learn spatial patterns in images.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "45 min",
+		"content": "CNNs use convolution filters and pooling layers to learn hierarchical visual features. They excel at image classification, detection, and segmentation tasks.",
+		"tabs": [
+			{
+				"id": "cnn-filters",
+				"title": "Filters",
+				"description": "Filters slide across the image to detect edges, textures, and shapes. Deeper layers detect more complex features.",
+				"bullets": [
+					"Small kernels capture local patterns",
+					"Padding preserves spatial size",
+					"Strides control resolution"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics dashboard"
+			},
+			{
+				"id": "cnn-pooling",
+				"title": "Pooling",
+				"description": "Pooling reduces spatial size and adds translation invariance. Max pooling is the most common choice.",
+				"bullets": [
+					"Reduces computation",
+					"Improves generalization",
+					"Controls model size"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Glowing data visuals"
+			},
+			{
+				"id": "cnn-applications",
+				"title": "Applications",
+				"description": "CNNs are used in medical imaging, autonomous vehicles, and quality control. Their feature hierarchy makes them robust for visual tasks.",
+				"bullets": [
+					"Image classification",
+					"Object detection",
+					"Image segmentation"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract lines"
+			}
+		],
+		"resources": [
+			{
+				"title": "CNN Basics",
+				"description": "A quick primer on CNNs and their architecture.",
+				"url": "https://www.geeksforgeeks.org/introduction-convolution-neural-network/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "prompt-engineering",
+		"title": "Prompt Engineering",
+		"subtitle": "Craft prompts that reliably steer LLM outputs.",
+		"category": "Generative AI",
+		"difficulty": "Beginner",
+		"estimatedTime": "35 min",
+		"content": "Prompt engineering is the practice of framing instructions so that models respond accurately. It mixes clear task statements, examples, and constraints.",
+		"tabs": [
+			{
+				"id": "prompt-structure",
+				"title": "Structure",
+				"description": "Use role, goal, and constraints. Provide the format you want in the output.",
+				"bullets": [
+					"Specify the role and audience",
+					"State the output format",
+					"Add context and constraints"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Laptop on a desk"
+			},
+			{
+				"id": "prompt-examples",
+				"title": "Few-Shot Examples",
+				"description": "Provide a small set of examples to lock in the style and structure you want the model to follow.",
+				"bullets": [
+					"Use 2-3 short examples",
+					"Be consistent with formatting",
+					"Keep examples close to the task"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team planning session"
+			},
+			{
+				"id": "prompt-evaluation",
+				"title": "Evaluate",
+				"description": "Measure reliability across edge cases. Capture failures and iterate on prompts rather than guessing.",
+				"bullets": [
+					"Track outputs over time",
+					"Test worst-case inputs",
+					"Version prompts with notes"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517142089942-ba376ce32a0c?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics on tablet"
+			}
+		],
+		"resources": [
+			{
+				"title": "Generative AI Overview",
+				"description": "Foundations of generative models and use cases.",
+				"url": "https://www.geeksforgeeks.org/generative-ai/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-basics",
+		"title": "AI Basics Track",
+		"subtitle": "Start with foundational AI concepts, history, and ethics.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "2-3 hours",
+		"content": "This track establishes a solid AI foundation. You will learn core terminology, understand how AI differs from ML and DL, and explore real-world applications with ethical context.",
+		"tabs": [
+			{
+				"id": "ai-basics-map",
+				"title": "Learning Map",
+				"description": "Begin with definitions and history, move into AI vs ML vs DL, then cover ethics and common applications.",
+				"bullets": [
+					"AI definitions and scope",
+					"Types of AI systems",
+					"Ethics and responsible use"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team mapping a plan"
+			},
+			{
+				"id": "ai-basics-goals",
+				"title": "Outcomes",
+				"description": "By the end, you will recognize AI use cases, evaluate trade-offs, and communicate AI concepts clearly.",
+				"bullets": [
+					"Explain AI to non-technical audiences",
+					"Spot bias risks early",
+					"Connect AI to business impact"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Planning session with notes"
+			}
+		],
+		"resources": [
+			{
+				"title": "What is Artificial Intelligence?",
+				"description": "A broad overview of AI concepts.",
+				"url": "https://www.geeksforgeeks.org/what-is-artificial-intelligence/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Crash Course: Intro to AI",
+				"channel": "CrashCourse",
+				"url": "https://www.youtube.com/watch?v=JMUxmLyrhSk",
+				"thumbnail": "https://img.youtube.com/vi/JMUxmLyrhSk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "machine-learning",
+		"title": "Machine Learning Track",
+		"subtitle": "Learn supervised and unsupervised learning fundamentals.",
+		"category": "Machine Learning",
+		"difficulty": "Beginner",
+		"estimatedTime": "3-4 hours",
+		"content": "Machine learning focuses on training models to learn from data. This track covers regression, classification, clustering, and evaluation basics with practical examples.",
+		"tabs": [
+			{
+				"id": "ml-core",
+				"title": "Core Methods",
+				"description": "Master the most common algorithms and the problems they solve.",
+				"bullets": [
+					"Regression for numeric prediction",
+					"Classification for labels",
+					"Clustering for grouping"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Data visualization"
+			},
+			{
+				"id": "ml-practice",
+				"title": "Practice",
+				"description": "Use datasets to build intuition. Start with small datasets, then expand.",
+				"bullets": [
+					"Clean and scale features",
+					"Split train and test data",
+					"Track evaluation metrics"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517142089942-ba376ce32a0c?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Charts on a screen"
+			}
+		],
+		"resources": [
+			{
+				"title": "Machine Learning Basics",
+				"description": "Overview of ML definitions and workflows.",
+				"url": "https://www.geeksforgeeks.org/machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Gradient Descent, Step-by-Step",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=IHZwWFHWa-w",
+				"thumbnail": "https://img.youtube.com/vi/IHZwWFHWa-w/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "deep-learning",
+		"title": "Deep Learning Track",
+		"subtitle": "Understand neural networks and modern architectures.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "4-5 hours",
+		"content": "Deep learning uses multi-layer neural networks to model complex patterns. This track covers activation functions, backpropagation, CNNs, and transformers.",
+		"tabs": [
+			{
+				"id": "dl-core",
+				"title": "Core Concepts",
+				"description": "Learn how deep networks learn representations from data.",
+				"bullets": [
+					"Forward and backward passes",
+					"Loss functions and optimization",
+					"Regularization strategies"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network visualization"
+			},
+			{
+				"id": "dl-architecture",
+				"title": "Architectures",
+				"description": "CNNs handle images, RNNs model sequences, and transformers power LLMs.",
+				"bullets": [
+					"CNNs for vision",
+					"Transformers for language",
+					"RNNs for time-series"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics dashboard"
+			}
+		],
+		"resources": [
+			{
+				"title": "Neural Networks and Deep Learning",
+				"description": "Intro to deep learning fundamentals.",
+				"url": "https://www.geeksforgeeks.org/deep-learning-introduction/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "nlp",
+		"title": "NLP Track",
+		"subtitle": "Learn how machines process and generate language.",
+		"category": "NLP",
+		"difficulty": "Intermediate",
+		"estimatedTime": "3-4 hours",
+		"content": "Natural language processing turns text into structured data and meaning. This track covers preprocessing, embeddings, transformers, and language models.",
+		"tabs": [
+			{
+				"id": "nlp-workflow",
+				"title": "Workflow",
+				"description": "Move from raw text to embeddings and downstream tasks like classification and summarization.",
+				"bullets": [
+					"Tokenize and normalize text",
+					"Build embeddings",
+					"Fine-tune for tasks"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract network lines"
+			},
+			{
+				"id": "nlp-llm",
+				"title": "Language Models",
+				"description": "Transformers learn context across sequences and enable large language models for generation.",
+				"bullets": [
+					"Attention captures context",
+					"Pretraining learns general language",
+					"Fine-tuning adapts to tasks"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Server racks"
+			}
+		],
+		"resources": [
+			{
+				"title": "NLP Introduction",
+				"description": "Start with NLP foundations.",
+				"url": "https://www.geeksforgeeks.org/introduction-to-natural-language-processing/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "nlp"
+	},
+	{
+		"id": "generative-ai",
+		"title": "Generative AI Track",
+		"subtitle": "Create text, images, and code with modern models.",
+		"category": "Generative AI",
+		"difficulty": "Beginner",
+		"estimatedTime": "3-4 hours",
+		"content": "Generative AI focuses on models that create new content. This track explores LLM fundamentals, prompting, and safe deployment practices.",
+		"tabs": [
+			{
+				"id": "genai-core",
+				"title": "Core Ideas",
+				"description": "Understand how generative models learn patterns and sample new outputs.",
+				"bullets": [
+					"Autoregressive generation",
+					"Sampling and temperature",
+					"Safety filters"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Laptop workspace"
+			},
+			{
+				"id": "genai-usage",
+				"title": "Use Cases",
+				"description": "Generative AI supports chatbots, copilots, summarization, and creative workflows.",
+				"bullets": [
+					"Customer support assistants",
+					"Content drafting",
+					"Code generation"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract light trails"
+			}
+		],
+		"resources": [
+			{
+				"title": "Generative AI Overview",
+				"description": "Learn how generative AI models work.",
+				"url": "https://www.geeksforgeeks.org/generative-ai/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Neural Networks (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=aircAruvnKk",
+				"thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-types",
+		"title": "Types of AI",
+		"subtitle": "Narrow AI, general AI, and speculative super AI.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "25 min",
+		"content": "AI systems can be classified by capability. Most deployed systems today are narrow AI, built for a single task. General AI aims for human-level flexibility, while super AI is a theoretical concept beyond current research.",
+		"tabs": [
+			{
+				"id": "ai-types-narrow",
+				"title": "Narrow AI",
+				"description": "Specialized systems that excel at one task, such as speech recognition or recommendation engines.",
+				"bullets": [
+					"High accuracy in a narrow domain",
+					"Requires task-specific data",
+					"Common in products today"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team collaborating on a project"
+			},
+			{
+				"id": "ai-types-general",
+				"title": "General AI",
+				"description": "A system that can learn any intellectual task. This remains a long-term research goal.",
+				"bullets": [
+					"Cross-domain learning",
+					"Adapts to new tasks",
+					"Not yet achieved"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network visualization"
+			}
+		],
+		"resources": [
+			{
+				"title": "Types of Artificial Intelligence",
+				"description": "Quick overview of AI categories.",
+				"url": "https://www.geeksforgeeks.org/types-of-artificial-intelligence/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Crash Course: Intro to AI",
+				"channel": "CrashCourse",
+				"url": "https://www.youtube.com/watch?v=JMUxmLyrhSk",
+				"thumbnail": "https://img.youtube.com/vi/JMUxmLyrhSk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-vs-ml-dl",
+		"title": "AI vs ML vs DL",
+		"subtitle": "Understand how AI, machine learning, and deep learning connect.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "AI is the umbrella field. Machine learning is a subset focused on learning from data, while deep learning is a subset of ML using multi-layer neural networks. Understanding the hierarchy helps you choose the right tools.",
+		"tabs": [
+			{
+				"id": "ai-vs-ml",
+				"title": "AI vs ML",
+				"description": "AI includes rule-based systems and ML models. ML specializes in data-driven learning.",
+				"bullets": [
+					"AI can be rule-based",
+					"ML requires training data",
+					"ML focuses on prediction and patterns"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Laptop with code"
+			},
+			{
+				"id": "ml-vs-dl",
+				"title": "ML vs DL",
+				"description": "Deep learning excels on large datasets and unstructured data like images or text.",
+				"bullets": [
+					"DL uses neural networks",
+					"DL needs more data and compute",
+					"ML can be simpler and faster"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Data charts"
+			}
+		],
+		"resources": [
+			{
+				"title": "AI vs ML vs DL",
+				"description": "Differences between AI, ML, and deep learning.",
+				"url": "https://www.geeksforgeeks.org/difference-between-artificial-intelligence-vs-machine-learning-vs-deep-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Intro to AI (CrashCourse)",
+				"channel": "CrashCourse",
+				"url": "https://www.youtube.com/watch?v=JMUxmLyrhSk",
+				"thumbnail": "https://img.youtube.com/vi/JMUxmLyrhSk/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-applications",
+		"title": "Real-World AI Applications",
+		"subtitle": "Where AI creates value today.",
+		"category": "AI Basics",
+		"difficulty": "Beginner",
+		"estimatedTime": "25 min",
+		"content": "AI is already used in healthcare, finance, e-commerce, and operations. The best use cases combine clear business goals with reliable data pipelines.",
+		"tabs": [
+			{
+				"id": "ai-app-industry",
+				"title": "Industry Examples",
+				"description": "AI supports diagnostics, fraud detection, supply chain forecasting, and personalized recommendations.",
+				"bullets": [
+					"Healthcare: imaging and triage",
+					"Finance: fraud and risk scoring",
+					"Retail: recommendations and demand planning"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Business meeting"
+			},
+			{
+				"id": "ai-app-selection",
+				"title": "Selecting Use Cases",
+				"description": "Pick use cases with strong data, measurable impact, and manageable risk.",
+				"bullets": [
+					"Start with small pilots",
+					"Define success metrics",
+					"Plan for deployment and monitoring"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Server racks"
+			}
+		],
+		"resources": [
+			{
+				"title": "Applications of AI",
+				"description": "Examples of AI in daily life and industry.",
+				"url": "https://www.geeksforgeeks.org/applications-of-artificial-intelligence/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "AI for Everyone (Andrew Ng)",
+				"channel": "DeepLearningAI",
+				"url": "https://www.youtube.com/watch?v=8hly31xKli0",
+				"thumbnail": "https://img.youtube.com/vi/8hly31xKli0/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "regression-classification",
+		"title": "Regression and Classification",
+		"subtitle": "Two core supervised learning tasks.",
+		"category": "Machine Learning",
+		"difficulty": "Beginner",
+		"estimatedTime": "40 min",
+		"content": "Regression predicts numeric values, while classification assigns labels. Choosing the right approach depends on the output type and business goal.",
+		"tabs": [
+			{
+				"id": "regression-basics",
+				"title": "Regression",
+				"description": "Use regression when the outcome is continuous, like price or demand.",
+				"bullets": [
+					"Linear regression for simple relationships",
+					"Evaluate with MAE or RMSE",
+					"Scale features for stability"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics dashboards"
+			},
+			{
+				"id": "classification-basics",
+				"title": "Classification",
+				"description": "Use classification for categories such as spam vs not spam.",
+				"bullets": [
+					"Binary or multi-class outputs",
+					"Track precision and recall",
+					"Balance classes when needed"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517142089942-ba376ce32a0c?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Charts on a tablet"
+			}
+		],
+		"resources": [
+			{
+				"title": "Regression vs Classification",
+				"description": "Compare the two learning tasks.",
+				"url": "https://www.geeksforgeeks.org/regression-classification-in-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "StatQuest: Regression",
+				"channel": "StatQuest",
+				"url": "https://www.youtube.com/watch?v=nk2CQITm_eo",
+				"thumbnail": "https://img.youtube.com/vi/nk2CQITm_eo/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "decision-trees",
+		"title": "Decision Trees",
+		"subtitle": "Interpretable models for classification and regression.",
+		"category": "Machine Learning",
+		"difficulty": "Beginner",
+		"estimatedTime": "35 min",
+		"content": "Decision trees split data based on feature thresholds to reduce impurity. They are simple to interpret and form the basis of random forests and gradient boosting.",
+		"tabs": [
+			{
+				"id": "trees-how",
+				"title": "How They Work",
+				"description": "Trees split data to maximize information gain at each step.",
+				"bullets": [
+					"Choose splits by entropy or Gini",
+					"Stop early to avoid overfitting",
+					"Prune for simpler models"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Notebook and analytics"
+			},
+			{
+				"id": "trees-ensembles",
+				"title": "Ensembles",
+				"description": "Random forests and gradient boosting combine multiple trees for better accuracy.",
+				"bullets": [
+					"Bagging reduces variance",
+					"Boosting reduces bias",
+					"Tune depth and learning rate"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract lines"
+			}
+		],
+		"resources": [
+			{
+				"title": "Decision Tree in ML",
+				"description": "Decision tree basics with examples.",
+				"url": "https://www.geeksforgeeks.org/decision-tree-introduction-example/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Decision Trees (StatQuest)",
+				"channel": "StatQuest",
+				"url": "https://www.youtube.com/watch?v=7VeUPuFGJHk",
+				"thumbnail": "https://img.youtube.com/vi/7VeUPuFGJHk/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "k-means",
+		"title": "K-Means Clustering",
+		"subtitle": "Group similar data points without labels.",
+		"category": "Machine Learning",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "K-Means partitions data into K clusters by iteratively updating cluster centers. It is widely used for segmentation tasks.",
+		"tabs": [
+			{
+				"id": "kmeans-steps",
+				"title": "Algorithm Steps",
+				"description": "Initialize centroids, assign points, update centroids, repeat until convergence.",
+				"bullets": [
+					"Choose K based on elbow method",
+					"Scale features first",
+					"Multiple restarts improve stability"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Data visualization"
+			},
+			{
+				"id": "kmeans-usecases",
+				"title": "Use Cases",
+				"description": "Use clustering for customer segmentation, anomaly detection, and document grouping.",
+				"bullets": [
+					"Market segmentation",
+					"Image compression",
+					"Document clustering"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team collaboration"
+			}
+		],
+		"resources": [
+			{
+				"title": "K-Means Clustering",
+				"description": "Detailed walkthrough and examples.",
+				"url": "https://www.geeksforgeeks.org/k-means-clustering-introduction/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "K-Means (StatQuest)",
+				"channel": "StatQuest",
+				"url": "https://www.youtube.com/watch?v=4b5d3muPQmA",
+				"thumbnail": "https://img.youtube.com/vi/4b5d3muPQmA/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "overfitting-underfitting",
+		"title": "Overfitting and Underfitting",
+		"subtitle": "Balance bias and variance for reliable models.",
+		"category": "Machine Learning",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "Overfitting happens when a model memorizes noise. Underfitting happens when the model is too simple. The goal is to generalize well on new data.",
+		"tabs": [
+			{
+				"id": "fit-signs",
+				"title": "Symptoms",
+				"description": "Compare training and validation performance to detect problems.",
+				"bullets": [
+					"Overfit: high train, low test",
+					"Underfit: low train and test",
+					"Use learning curves"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517142089942-ba376ce32a0c?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics screen"
+			},
+			{
+				"id": "fit-fixes",
+				"title": "Fixes",
+				"description": "Regularization, more data, or simpler models can improve generalization.",
+				"bullets": [
+					"Add L1/L2 regularization",
+					"Use cross-validation",
+					"Simplify features"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Notebook"
+			}
+		],
+		"resources": [
+			{
+				"title": "Bias and Variance",
+				"description": "Understand the trade-off in ML models.",
+				"url": "https://www.geeksforgeeks.org/bias-and-variance-in-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Bias-Variance Tradeoff",
+				"channel": "StatQuest",
+				"url": "https://www.youtube.com/watch?v=EuBBz3bI-aA",
+				"thumbnail": "https://img.youtube.com/vi/EuBBz3bI-aA/hqdefault.jpg"
+			}
+		],
+		"quizId": "machine-learning"
+	},
+	{
+		"id": "activation-functions",
+		"title": "Activation Functions",
+		"subtitle": "Non-linearities that make deep learning powerful.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "30 min",
+		"content": "Activation functions introduce non-linearity. ReLU is common for hidden layers, while sigmoid and softmax are used for probabilistic outputs.",
+		"tabs": [
+			{
+				"id": "activation-relu",
+				"title": "ReLU",
+				"description": "ReLU keeps gradients stable and is computationally efficient.",
+				"bullets": [
+					"Fast to compute",
+					"Reduces vanishing gradients",
+					"Use variants like Leaky ReLU if needed"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Data visualization"
+			},
+			{
+				"id": "activation-softmax",
+				"title": "Sigmoid & Softmax",
+				"description": "Sigmoid outputs probability for binary tasks, softmax for multi-class tasks.",
+				"bullets": [
+					"Use sigmoid for binary classification",
+					"Softmax normalizes class scores",
+					"Monitor saturation issues"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network nodes"
+			}
+		],
+		"resources": [
+			{
+				"title": "Activation Functions",
+				"description": "Types of activation functions used in neural networks.",
+				"url": "https://www.geeksforgeeks.org/activation-functions-neural-networks/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Activation Functions (StatQuest)",
+				"channel": "StatQuest",
+				"url": "https://www.youtube.com/watch?v=-7scQpJT7uo",
+				"thumbnail": "https://img.youtube.com/vi/-7scQpJT7uo/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "backpropagation",
+		"title": "Backpropagation",
+		"subtitle": "How neural networks learn from error signals.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "35 min",
+		"content": "Backpropagation computes gradients of the loss with respect to weights. The optimizer then updates weights to reduce error.",
+		"tabs": [
+			{
+				"id": "backprop-flow",
+				"title": "Training Flow",
+				"description": "Forward pass computes predictions; backward pass propagates gradients.",
+				"bullets": [
+					"Compute loss",
+					"Chain rule for gradients",
+					"Update weights with learning rate"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code on screen"
+			},
+			{
+				"id": "backprop-tips",
+				"title": "Tips",
+				"description": "Stabilize training with good initialization and normalization.",
+				"bullets": [
+					"Normalize inputs",
+					"Use adaptive optimizers",
+					"Monitor gradient explosion"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team collaboration"
+			}
+		],
+		"resources": [
+			{
+				"title": "Backpropagation",
+				"description": "Overview of backpropagation in neural networks.",
+				"url": "https://www.geeksforgeeks.org/backpropagation-in-neural-network/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Backpropagation (3Blue1Brown)",
+				"channel": "3Blue1Brown",
+				"url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U",
+				"thumbnail": "https://img.youtube.com/vi/Ilg3gGewQ5U/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "transformers-intro",
+		"title": "Introduction to Transformers",
+		"subtitle": "The architecture behind modern language models.",
+		"category": "Deep Learning",
+		"difficulty": "Intermediate",
+		"estimatedTime": "45 min",
+		"content": "Transformers use attention to model relationships between tokens. They scale well and power large language models, translation systems, and summarization.",
+		"tabs": [
+			{
+				"id": "transformers-attention",
+				"title": "Attention",
+				"description": "Self-attention lets the model focus on relevant tokens across a sequence.",
+				"bullets": [
+					"Context-aware representations",
+					"Parallel processing",
+					"Scales to long sequences"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract network"
+			},
+			{
+				"id": "transformers-blocks",
+				"title": "Transformer Blocks",
+				"description": "Each block includes attention, feed-forward layers, and residual connections.",
+				"bullets": [
+					"Layer normalization",
+					"Residual shortcuts",
+					"Stacked layers"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network visualization"
+			}
+		],
+		"resources": [
+			{
+				"title": "Transformer Model",
+				"description": "Overview of transformer architecture.",
+				"url": "https://www.geeksforgeeks.org/transformer-model-in-machine-learning/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Attention is All You Need (Overview)",
+				"channel": "Yannic Kilcher",
+				"url": "https://www.youtube.com/watch?v=iDulhoQ2pro",
+				"thumbnail": "https://img.youtube.com/vi/iDulhoQ2pro/hqdefault.jpg"
+			}
+		],
+		"quizId": "deep-learning"
+	},
+	{
+		"id": "text-preprocessing",
+		"title": "Text Preprocessing",
+		"subtitle": "Prepare text data for NLP models.",
+		"category": "NLP",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "Text preprocessing includes tokenization, normalization, and cleaning. Good preprocessing improves model quality and reduces noise.",
+		"tabs": [
+			{
+				"id": "preprocess-steps",
+				"title": "Steps",
+				"description": "Tokenize, lowercase, remove stopwords, and handle punctuation.",
+				"bullets": [
+					"Tokenization",
+					"Lemmatization or stemming",
+					"Handling emojis and special symbols"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code on screen"
+			},
+			{
+				"id": "preprocess-tools",
+				"title": "Tools",
+				"description": "Popular libraries include NLTK, spaCy, and Hugging Face tokenizers.",
+				"bullets": [
+					"NLTK for classical NLP",
+					"spaCy for pipelines",
+					"Transformers for modern workflows"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team working"
+			}
+		],
+		"resources": [
+			{
+				"title": "Text Preprocessing in NLP",
+				"description": "Common NLP preprocessing steps.",
+				"url": "https://www.geeksforgeeks.org/text-preprocessing-in-nlp/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Tokenization (Hugging Face)",
+				"channel": "Hugging Face",
+				"url": "https://www.youtube.com/watch?v=1tS6pOaeDzo",
+				"thumbnail": "https://img.youtube.com/vi/1tS6pOaeDzo/hqdefault.jpg"
+			}
+		],
+		"quizId": "nlp"
+	},
+	{
+		"id": "sentiment-analysis",
+		"title": "Sentiment Analysis",
+		"subtitle": "Measure positive, negative, or neutral text sentiment.",
+		"category": "NLP",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "Sentiment analysis classifies text by emotion or tone. It is used in product reviews, support analysis, and social media monitoring.",
+		"tabs": [
+			{
+				"id": "sentiment-approaches",
+				"title": "Approaches",
+				"description": "Use rule-based lexicons or ML classifiers for sentiment predictions.",
+				"bullets": [
+					"Lexicon-based methods",
+					"Supervised classification",
+					"Transformer-based models"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Server lights"
+			},
+			{
+				"id": "sentiment-eval",
+				"title": "Evaluation",
+				"description": "Use precision, recall, and confusion matrices to validate results.",
+				"bullets": [
+					"Handle class imbalance",
+					"Use labeled datasets",
+					"Track model drift"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Notes and analytics"
+			}
+		],
+		"resources": [
+			{
+				"title": "Sentiment Analysis",
+				"description": "Definition and techniques in NLP.",
+				"url": "https://www.geeksforgeeks.org/sentiment-analysis-in-nlp/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Sentiment Analysis (CS50)",
+				"channel": "CS50",
+				"url": "https://www.youtube.com/watch?v=4GzB3B2c2bA",
+				"thumbnail": "https://img.youtube.com/vi/4GzB3B2c2bA/hqdefault.jpg"
+			}
+		],
+		"quizId": "nlp"
+	},
+	{
+		"id": "language-models",
+		"title": "Language Models",
+		"subtitle": "Predict text using probability and context.",
+		"category": "NLP",
+		"difficulty": "Intermediate",
+		"estimatedTime": "40 min",
+		"content": "Language models estimate the probability of word sequences. Modern LMs use transformers to model long context and generate fluent text.",
+		"tabs": [
+			{
+				"id": "lm-basics",
+				"title": "Basics",
+				"description": "N-grams model short context; transformers handle long-range context.",
+				"bullets": [
+					"N-gram models for short context",
+					"Perplexity measures fit",
+					"Transformers scale better"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network lines"
+			},
+			{
+				"id": "lm-use",
+				"title": "Use Cases",
+				"description": "Language models power chatbots, summarization, and code assistants.",
+				"bullets": [
+					"Conversation and Q&A",
+					"Summarization",
+					"Code generation"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Laptop on desk"
+			}
+		],
+		"resources": [
+			{
+				"title": "Language Models",
+				"description": "Overview of language modeling.",
+				"url": "https://www.geeksforgeeks.org/language-models-in-nlp/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "The Transformer (Overview)",
+				"channel": "Jay Alammar",
+				"url": "https://www.youtube.com/watch?v=4Bdc55j80l8",
+				"thumbnail": "https://img.youtube.com/vi/4Bdc55j80l8/hqdefault.jpg"
+			}
+		],
+		"quizId": "nlp"
+	},
+	{
+		"id": "llm-fundamentals",
+		"title": "LLM Fundamentals",
+		"subtitle": "How large language models are trained and used.",
+		"category": "Generative AI",
+		"difficulty": "Beginner",
+		"estimatedTime": "40 min",
+		"content": "Large language models are pretrained on huge text corpora and fine-tuned for tasks. They generate outputs token by token using probabilistic sampling.",
+		"tabs": [
+			{
+				"id": "llm-training",
+				"title": "Training",
+				"description": "Pretraining learns general patterns; fine-tuning adapts to specific tasks.",
+				"bullets": [
+					"Massive datasets",
+					"Compute-intensive training",
+					"Instruction tuning improves behavior"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Analytics display"
+			},
+			{
+				"id": "llm-deploy",
+				"title": "Deployment",
+				"description": "Use retrieval augmentation, caching, and guardrails for safe production use.",
+				"bullets": [
+					"Prompt templates",
+					"RAG pipelines",
+					"Safety and moderation"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Network visualization"
+			}
+		],
+		"resources": [
+			{
+				"title": "Large Language Models",
+				"description": "High-level explanation of LLMs.",
+				"url": "https://www.geeksforgeeks.org/large-language-models/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "LLMs Explained",
+				"channel": "Hugging Face",
+				"url": "https://www.youtube.com/watch?v=7dUSeS2j7gA",
+				"thumbnail": "https://img.youtube.com/vi/7dUSeS2j7gA/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "text-to-image",
+		"title": "Text-to-Image Models",
+		"subtitle": "Generate visuals from prompts using diffusion models.",
+		"category": "Generative AI",
+		"difficulty": "Beginner",
+		"estimatedTime": "35 min",
+		"content": "Text-to-image models use diffusion or transformer architectures to create images from text prompts. They rely on large datasets of image-caption pairs.",
+		"tabs": [
+			{
+				"id": "tti-how",
+				"title": "How It Works",
+				"description": "Diffusion models start with noise and iteratively denoise to match the prompt.",
+				"bullets": [
+					"Noise-to-image generation",
+					"Conditioning on text embeddings",
+					"Classifier-free guidance"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Color gradients"
+			},
+			{
+				"id": "tti-prompt",
+				"title": "Prompting",
+				"description": "Specific style, subject, and lighting keywords improve outputs.",
+				"bullets": [
+					"Describe subject and style",
+					"Use modifiers for quality",
+					"Iterate with variations"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Abstract lights"
+			}
+		],
+		"resources": [
+			{
+				"title": "Generative AI",
+				"description": "Introduction to generative models.",
+				"url": "https://www.geeksforgeeks.org/generative-ai/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Diffusion Models Explained",
+				"channel": "Hugging Face",
+				"url": "https://www.youtube.com/watch?v=HoKDTa5jHvg",
+				"thumbnail": "https://img.youtube.com/vi/HoKDTa5jHvg/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "ai-agents",
+		"title": "AI Agents",
+		"subtitle": "Systems that plan and take actions to achieve goals.",
+		"category": "Generative AI",
+		"difficulty": "Intermediate",
+		"estimatedTime": "40 min",
+		"content": "AI agents combine LLM reasoning with tools, memory, and planning. They can execute multi-step workflows like research, scheduling, or code generation.",
+		"tabs": [
+			{
+				"id": "agents-components",
+				"title": "Components",
+				"description": "Agents include a planner, tool use, and memory for context.",
+				"bullets": [
+					"Planner and executor",
+					"Tool calling",
+					"Short-term and long-term memory"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code on screen"
+			},
+			{
+				"id": "agents-guardrails",
+				"title": "Guardrails",
+				"description": "Define permissions, scope, and validation steps for safe automation.",
+				"bullets": [
+					"Limit tool access",
+					"Require human approvals",
+					"Log actions for review"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Team planning"
+			}
+		],
+		"resources": [
+			{
+				"title": "AI Agents Overview",
+				"description": "Intro to agent workflows and architectures.",
+				"url": "https://www.geeksforgeeks.org/ai-agents/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Agents Explained",
+				"channel": "DeepLearningAI",
+				"url": "https://www.youtube.com/watch?v=6Q0l0J3tO5Y",
+				"thumbnail": "https://img.youtube.com/vi/6Q0l0J3tO5Y/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	},
+	{
+		"id": "responsible-ai",
+		"title": "Responsible AI Usage",
+		"subtitle": "Build safe, transparent, and fair AI systems.",
+		"category": "Generative AI",
+		"difficulty": "Beginner",
+		"estimatedTime": "30 min",
+		"content": "Responsible AI means designing for fairness, transparency, and user safety. It includes guardrails, human oversight, and clear communication about model limitations.",
+		"tabs": [
+			{
+				"id": "responsible-safety",
+				"title": "Safety",
+				"description": "Mitigate harmful outputs by adding filters and human review.",
+				"bullets": [
+					"Content moderation",
+					"Human-in-the-loop",
+					"Audit logs"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Code and UI"
+			},
+			{
+				"id": "responsible-transparency",
+				"title": "Transparency",
+				"description": "Explain model behavior and document limitations for users.",
+				"bullets": [
+					"Model cards",
+					"Disclose data usage",
+					"Explain outputs"
+				],
+				"imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+				"imageAlt": "Notebook"
+			}
+		],
+		"resources": [
+			{
+				"title": "Ethics in AI",
+				"description": "Overview of responsible AI principles.",
+				"url": "https://www.geeksforgeeks.org/ethics-in-artificial-intelligence/",
+				"source": "GeeksforGeeks"
+			}
+		],
+		"videos": [
+			{
+				"title": "Responsible AI",
+				"channel": "Google AI",
+				"url": "https://www.youtube.com/watch?v=G9I0wZPIw9w",
+				"thumbnail": "https://img.youtube.com/vi/G9I0wZPIw9w/hqdefault.jpg"
+			}
+		],
+		"quizId": "ai-basics"
+	}
+]

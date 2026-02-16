@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, and AI-powered assistance using Gemini API." />
+    <title>AI Learning Guide | Login</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+    <style>
+      *,
+      *:after,
+      *:before {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --cord: hsl(210, 0%, calc((40 + (var(--on, 0) * 50)) * 1%));
+        --opening: hsl(
+          50,
+          calc((10 + (var(--on, 0) * 80)) * 1%),
+          calc((20 + (var(--on, 0) * 70)) * 1%)
+        );
+        --feature: #0a0a0a;
+        --accent: 210;
+        --tongue: #e06952;
+        --base-top: hsl(
+          var(--accent),
+          0%,
+          calc((40 + (var(--on, 0) * 40)) * 1%)
+        );
+        --base-side: hsl(
+          var(--accent),
+          0%,
+          calc((20 + (var(--on, 0) * 40)) * 1%)
+        );
+        --post: hsl(
+          var(--accent),
+          0%,
+          calc((20 + (var(--on, 0) * 40)) * 1%)
+        );
+        --b-1: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 0)) * 1%),
+          calc((50 + (var(--on, 0) * 50)) * 1%),
+          0.85
+        );
+        --b-2: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 0)) * 1%),
+          calc((20 + (var(--on, 0) * 30)) * 1%),
+          0.25
+        );
+        --b-3: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 0)) * 1%),
+          calc((20 + (var(--on, 0) * 30)) * 1%),
+          0.5
+        );
+        --b-4: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 0)) * 1%),
+          calc((20 + (var(--on, 0) * 30)) * 1%),
+          0.25
+        );
+        --l-1: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 20)) * 1%),
+          calc((50 + (var(--on, 0) * 50)) * 1%),
+          0.85
+        );
+        --l-2: hsla(
+          45,
+          calc((0 + (var(--on, 0) * 20)) * 1%),
+          calc((50 + (var(--on, 0) * 50)) * 1%),
+          0.85
+        );
+        --shade-hue: 320;
+        --t-1: hsl(
+          var(--shade-hue),
+          calc((0 + (var(--on, 0) * 20)) * 1%),
+          calc((30 + (var(--on, 0) * 60)) * 1%)
+        );
+        --t-2: hsl(
+          var(--shade-hue),
+          calc((0 + (var(--on, 0) * 20)) * 1%),
+          calc((20 + (var(--on, 0) * 35)) * 1%)
+        );
+        --t-3: hsl(
+          var(--shade-hue),
+          calc((0 + (var(--on, 0) * 20)) * 1%),
+          calc((10 + (var(--on, 0) * 20)) * 1%)
+        );
+        --glow-color: hsl(320, 40%, 45%);
+        --glow-color-dark: hsl(320, 40%, 35%);
+      }
+
+      .lamp-page {
+        min-height: calc(100vh - 160px);
+        display: grid;
+        place-items: center;
+        padding: 2rem 5vw 4rem;
+      }
+
+      .lamp-stage {
+        width: min(1100px, 100%);
+        background: #121921;
+        border-radius: 28px;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8vmin;
+        flex-wrap: wrap;
+        padding: 1rem 0;
+      }
+
+      .login-form {
+        background: rgba(18, 25, 33, 0.9);
+        padding: 3rem 2.5rem;
+        border-radius: 20px;
+        min-width: 320px;
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        pointer-events: none;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 2px solid transparent;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0);
+      }
+
+      .login-form.active {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        pointer-events: all;
+        border-color: var(--glow-color);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.1),
+          0 0 30px var(--glow-color),
+          inset 0 0 15px rgba(255, 255, 255, 0.05);
+      }
+
+      .login-form h2 {
+        color: #fff;
+        font-size: 2rem;
+        margin: 0 0 2rem 0;
+        text-align: center;
+        text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #aaa;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 5px var(--glow-color);
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--glow-color);
+        box-shadow: 0 0 10px var(--glow-color);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .form-group input::placeholder {
+        color: #666;
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 0.875rem;
+        background: linear-gradient(
+          135deg,
+          var(--glow-color),
+          var(--glow-color-dark)
+        );
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 0.5rem;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+          0 0 20px var(--glow-color);
+      }
+
+      .login-btn:active {
+        transform: translateY(0);
+      }
+
+      .form-footer {
+        margin-top: 1.5rem;
+        text-align: center;
+      }
+
+      .forgot-link {
+        color: #888;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .forgot-link:hover {
+        color: var(--glow-color);
+        text-shadow: 0 0 10px var(--glow-color);
+      }
+
+      .auth-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #888;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab.active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--glow-color);
+        color: #fff;
+        text-shadow: 0 0 5px var(--glow-color);
+      }
+
+      .tab:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .auth-message {
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        text-align: center;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+        min-height: 1.5rem;
+      }
+
+      .auth-message:empty {
+        display: none;
+      }
+
+      .auth-message.success {
+        background: rgba(52, 168, 83, 0.2);
+        border: 1px solid #34a853;
+        color: #34a853;
+      }
+
+      .auth-message.error {
+        background: rgba(234, 67, 53, 0.2);
+        border: 1px solid #ea4335;
+        color: #ea4335;
+      }
+
+      /* Form animations */
+      form {
+        animation: fadeSlideIn 0.4s ease;
+      }
+
+      @keyframes fadeSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Password toggle */
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        padding: 4px;
+        transition: color 0.3s ease;
+      }
+
+      .password-toggle:hover {
+        color: var(--glow-color);
+      }
+
+      .password-wrapper input {
+        padding-right: 40px;
+      }
+
+      /* Loading state */
+      .login-btn.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .login-btn.loading::after {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid transparent;
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Password strength indicator */
+      .password-strength {
+        height: 4px;
+        border-radius: 2px;
+        margin-top: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+
+      .password-strength-bar {
+        height: 100%;
+        width: 0;
+        transition: width 0.3s ease, background 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .password-strength-bar.weak { width: 33%; background: #ea4335; }
+      .password-strength-bar.medium { width: 66%; background: #fbbc05; }
+      .password-strength-bar.strong { width: 100%; background: #34a853; }
+
+      .password-hint {
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 4px;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: #666;
+        font-size: 0.85rem;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .divider span {
+        padding: 0 1rem;
+      }
+
+      .google-btn {
+        width: 100%;
+        padding: 0.875rem;
+        background: #fff;
+        border: none;
+        border-radius: 10px;
+        color: #333;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+      }
+
+      .google-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+      }
+
+      .google-btn.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .google-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .radio-controls {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      .lamp {
+        display: none;
+        height: 40vmin;
+        overflow: visible !important;
+      }
+
+      .cord {
+        stroke: var(--cord);
+      }
+
+      .cord--rig {
+        display: none;
+      }
+
+      .lamp__tongue {
+        fill: var(--tongue);
+      }
+
+      .lamp__hit {
+        cursor: pointer;
+        opacity: 0;
+      }
+
+      .lamp__feature {
+        fill: var(--feature);
+      }
+
+      .lamp__stroke {
+        stroke: var(--feature);
+      }
+
+      .lamp__mouth,
+      .lamp__light {
+        opacity: var(--on, 0);
+      }
+
+      .shade__opening {
+        fill: var(--opening);
+      }
+
+      .shade__opening-shade {
+        opacity: calc(1 - var(--on, 0));
+      }
+
+      .post__body {
+        fill: var(--post);
+      }
+
+      .base__top {
+        fill: var(--base-top);
+      }
+
+      .base__side {
+        fill: var(--base-side);
+      }
+
+      .top__body {
+        fill: var(--t-3);
+      }
+
+      @media (max-width: 900px) {
+        .lamp-page {
+          min-height: auto;
+          padding: 2rem 4vw 3rem;
+        }
+
+        .lamp-stage {
+          padding: 2rem 1.5rem;
+        }
+
+        .container {
+          gap: 6vmin;
+        }
+
+        .login-form {
+          min-width: 0;
+          width: min(420px, 100%);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .lamp-stage {
+          padding: 1.5rem 1.2rem;
+        }
+
+        .login-form {
+          padding: 2rem 1.5rem;
+        }
+
+        .login-form h2 {
+          font-size: 1.6rem;
+        }
+
+        .container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="index.html">AI Learning Guide</a>
+      <nav class="site-nav" id="siteNav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="profile.html">Profile</a>
+        <a href="about.html">About</a>
+        <a href="login.html" class="button ghost active">Login</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+    </header>
+
+    <main class="lamp-page">
+      <div class="lamp-stage">
+        <form class="radio-controls">
+          <input type="radio" id="on" name="status" value="on" />
+          <label for="on">On</label>
+          <input type="radio" id="off" name="status" value="off" />
+          <label for="off">Off</label>
+        </form>
+
+        <div class="container">
+          <svg
+            class="lamp"
+            viewBox="0 0 333 484"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+        <g class="lamp__shade shade">
+          <ellipse
+            class="shade__opening"
+            cx="165"
+            cy="220"
+            rx="130"
+            ry="20"
+          />
+          <ellipse
+            class="shade__opening-shade"
+            cx="165"
+            cy="220"
+            rx="130"
+            ry="20"
+            fill="url(#opening-shade)"
+          />
+        </g>
+        <g class="lamp__base base">
+          <path
+            class="base__side"
+            d="M165 464c44.183 0 80-8.954 80-20v-14h-22.869c-14.519-3.703-34.752-6-57.131-6-22.379 0-42.612 2.297-57.131 6H85v14c0 11.046 35.817 20 80 20z"
+          />
+          <path
+            d="M165 464c44.183 0 80-8.954 80-20v-14h-22.869c-14.519-3.703-34.752-6-57.131-6-22.379 0-42.612 2.297-57.131 6H85v14c0 11.046 35.817 20 80 20z"
+            fill="url(#side-shading)"
+          />
+          <ellipse
+            class="base__top"
+            cx="165"
+            cy="430"
+            rx="80"
+            ry="20"
+          />
+          <ellipse
+            cx="165"
+            cy="430"
+            rx="80"
+            ry="20"
+            fill="url(#base-shading)"
+          />
+        </g>
+        <g class="lamp__post post">
+          <path
+            class="post__body"
+            d="M180 142h-30v286c0 3.866 6.716 7 15 7 8.284 0 15-3.134 15-7V142z"
+          />
+          <path
+            d="M180 142h-30v286c0 3.866 6.716 7 15 7 8.284 0 15-3.134 15-7V142z"
+            fill="url(#post-shading)"
+          />
+        </g>
+        <g class="lamp__cords cords">
+          <path
+            class="cord cord--rig"
+            d="M124 187.033V347"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <path
+            class="cord cord--rig"
+            d="M124 187.023s17.007 21.921 17.007 34.846c0 12.925-11.338 23.231-17.007 34.846-5.669 11.615-17.007 21.921-17.007 34.846 0 12.925 17.007 34.846 17.007 34.846"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <path
+            class="cord cord--rig"
+            d="M124 187.017s-21.259 17.932-21.259 30.26c0 12.327 14.173 20.173 21.259 30.26 7.086 10.086 21.259 17.933 21.259 30.26 0 12.327-21.259 30.26-21.259 30.26"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <path
+            class="cord cord--rig"
+            d="M124 187s29.763 8.644 29.763 20.735-19.842 13.823-29.763 20.734c-9.921 6.912-29.763 8.644-29.763 20.735S124 269.939 124 269.939"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <path
+            class="cord cord--rig"
+            d="M124 187.029s-10.63 26.199-10.63 39.992c0 13.794 7.087 26.661 10.63 39.992 3.543 13.331 10.63 26.198 10.63 39.992 0 13.793-10.63 39.992-10.63 39.992"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <path
+            class="cord cord--rig"
+            d="M124 187.033V347"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <line
+            class="cord cord--dummy"
+            x1="124"
+            y2="348"
+            x2="124"
+            y1="190"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+        </g>
+        <path
+          class="lamp__light"
+          d="M290.5 193H39L0 463.5c0 11.046 75.478 20 165.5 20s167-11.954 167-23l-42-267.5z"
+          fill="url(#light)"
+        />
+        <g class="lamp__top top">
+          <path
+            class="top__body"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M164.859 0c55.229 0 100 8.954 100 20l29.859 199.06C291.529 208.451 234.609 200 164.859 200S38.189 208.451 35 219.06L64.859 20c0-11.046 44.772-20 100-20z"
+          />
+          <path
+            class="top__shading"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M164.859 0c55.229 0 100 8.954 100 20l29.859 199.06C291.529 208.451 234.609 200 164.859 200S38.189 208.451 35 219.06L64.859 20c0-11.046 44.772-20 100-20z"
+            fill="url(#top-shading)"
+          />
+        </g>
+        <g class="lamp__face face">
+          <g class="lamp__mouth">
+            <path
+              d="M165 178c19.882 0 36-16.118 36-36h-72c0 19.882 16.118 36 36 36z"
+              fill="#141414"
+            />
+            <clipPath
+              class="lamp__feature"
+              id="mouth"
+              x="129"
+              y="142"
+              width="72"
+              height="36"
+            >
+              <path
+                d="M165 178c19.882 0 36-16.118 36-36h-72c0 19.882 16.118 36 36 36z"
+                fill="#141414"
+              />
+            </clipPath>
+            <g clip-path="url(#mouth)">
+              <circle
+                class="lamp__tongue"
+                cx="179.4"
+                cy="172.6"
+                r="18"
+              />
+            </g>
+          </g>
+          <g class="lamp__eyes">
+            <path
+              class="lamp__eye lamp__stroke"
+              d="M115 135c0-5.523-5.82-10-13-10s-13 4.477-13 10"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              class="lamp__eye lamp__stroke"
+              d="M241 135c0-5.523-5.82-10-13-10s-13 4.477-13 10"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+        </g>
+        <defs>
+          <linearGradient
+            id="opening-shade"
+            x1="35"
+            y1="220"
+            x2="295"
+            y2="220"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop />
+            <stop
+              offset="1"
+              stop-color="var(--shade)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+          <linearGradient
+            id="base-shading"
+            x1="85"
+            y1="444"
+            x2="245"
+            y2="444"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="var(--b-1)" />
+            <stop
+              offset="0.8"
+              stop-color="var(--b-2)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+          <linearGradient
+            id="side-shading"
+            x1="119"
+            y1="430"
+            x2="245"
+            y2="430"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="var(--b-3)" />
+            <stop
+              offset="1"
+              stop-color="var(--b-4)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+          <linearGradient
+            id="post-shading"
+            x1="150"
+            y1="288"
+            x2="180"
+            y2="288"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="var(--b-1)" />
+            <stop
+              offset="1"
+              stop-color="var(--b-2)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+          <linearGradient
+            id="light"
+            x1="165.5"
+            y1="218.5"
+            x2="165.5"
+            y2="483.5"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="var(--l-1)" stop-opacity=".2" />
+            <stop
+              offset="1"
+              stop-color="var(--l-2)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+          <linearGradient
+            id="top-shading"
+            x1="56"
+            y1="110"
+            x2="295"
+            y2="110"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="var(--t-1)" stop-opacity=".8" />
+            <stop
+              offset="1"
+              stop-color="var(--t-2)"
+              stop-opacity="0"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          class="lamp__hit"
+          cx="124"
+          cy="347"
+          r="66"
+          fill="#C4C4C4"
+          fill-opacity=".1"
+        />
+          </svg>
+
+          <div class="login-form">
+            <h2>Welcome</h2>
+            
+            <div class="auth-tabs">
+              <button class="tab active" data-tab="login">Login</button>
+              <button class="tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <p id="authMessage" class="auth-message"></p>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="loginEmail"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button type="button" class="password-toggle" data-target="loginPassword">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="login-btn">Login</button>
+              <div class="form-footer">
+                <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot Password?</a>
+              </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="hidden">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="signupName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="signupEmail"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    id="signupPassword"
+                    placeholder="Create a password"
+                    minlength="6"
+                    required
+                  />
+                  <button type="button" class="password-toggle" data-target="signupPassword">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+                <div class="password-strength">
+                  <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+                <p class="password-hint">Min 6 characters with letters and numbers</p>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    minlength="6"
+                    required
+                  />
+                  <button type="button" class="password-toggle" data-target="confirmPassword">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="login-btn">Create Account</button>
+              <p class="form-footer" style="font-size: 0.8rem; color: #888;">By signing up, you agree to our <a href="privacy.html" style="color: var(--glow-color);">Privacy Policy</a></p>
+            </form>
+
+            <div class="divider"><span>or</span></div>
+
+            <button id="googleSignIn" class="google-btn">
+              <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Secure login with Firebase Auth.</p>
+    </footer>
+
+    <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/Draggable.min.js"></script>
+    <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/auth.js"></script>
+    <script>
+      const {
+        gsap,
+        gsap: { registerPlugin, set, to, timeline },
+        MorphSVGPlugin,
+        Draggable,
+      } = window;
+      registerPlugin(MorphSVGPlugin);
+
+      const AUDIO = {
+        CLICK: new Audio("https://assets.codepen.io/605876/click.mp3"),
+      };
+
+      const ON = document.querySelector("#on");
+      const OFF = document.querySelector("#off");
+      const LOGIN_FORM = document.querySelector(".login-form");
+
+      let startX;
+      let startY;
+
+      const PROXY = document.createElement("div");
+
+      const CORDS = gsap.utils.toArray(".cords path");
+      const CORD_DURATION = 0.1;
+      const HIT = document.querySelector(".lamp__hit");
+      const DUMMY_CORD = document.querySelector(".cord--dummy");
+      const ENDX = DUMMY_CORD.getAttribute("x2");
+      const ENDY = DUMMY_CORD.getAttribute("y2");
+      const RESET = () => {
+        set(PROXY, {
+          x: ENDX,
+          y: ENDY,
+        });
+      };
+      RESET();
+
+      const STATE = {
+        ON: false,
+      };
+
+      gsap.set([".cords", HIT], {
+        x: -10,
+      });
+
+      gsap.set(".lamp__eye", {
+        rotate: 180,
+        transformOrigin: "50% 50%",
+        yPercent: 50,
+      });
+
+      const CORD_TL = timeline({
+        paused: true,
+        onStart: () => {
+          STATE.ON = !STATE.ON;
+          set(document.documentElement, { "--on": STATE.ON ? 1 : 0 });
+          const hue = gsap.utils.random(0, 359);
+          set(document.documentElement, { "--shade-hue": hue });
+
+          const glowColor = `hsl(${hue}, 40%, 45%)`;
+          const glowColorDark = `hsl(${hue}, 40%, 35%)`;
+          set(document.documentElement, {
+            "--glow-color": glowColor,
+          });
+          set(document.documentElement, {
+            "--glow-color-dark": glowColorDark,
+          });
+
+          set(".lamp__eye", {
+            rotate: STATE.ON ? 0 : 180,
+          });
+
+          set([DUMMY_CORD, HIT], { display: "none" });
+          set(CORDS[0], { display: "block" });
+          AUDIO.CLICK.play();
+
+          if (STATE.ON) {
+            ON.setAttribute("checked", true);
+            OFF.removeAttribute("checked");
+            LOGIN_FORM.classList.add("active");
+          } else {
+            ON.removeAttribute("checked");
+            OFF.setAttribute("checked", true);
+            LOGIN_FORM.classList.remove("active");
+          }
+        },
+        onComplete: () => {
+          set([DUMMY_CORD, HIT], { display: "block" });
+          set(CORDS[0], { display: "none" });
+          RESET();
+        },
+      });
+
+      for (let i = 1; i < CORDS.length; i++) {
+        CORD_TL.add(
+          to(CORDS[0], {
+            morphSVG: CORDS[i],
+            duration: CORD_DURATION,
+            repeat: 1,
+            yoyo: true,
+          })
+        );
+      }
+
+      Draggable.create(PROXY, {
+        trigger: HIT,
+        type: "x,y",
+        onPress: (e) => {
+          startX = e.x;
+          startY = e.y;
+        },
+        onDrag: function () {
+          set(DUMMY_CORD, {
+            attr: {
+              x2: this.x,
+              y2: Math.max(400, this.y),
+            },
+          });
+        },
+        onRelease: function (e) {
+          const DISTX = Math.abs(e.x - startX);
+          const DISTY = Math.abs(e.y - startY);
+          const TRAVELLED = Math.sqrt(DISTX * DISTX + DISTY * DISTY);
+          to(DUMMY_CORD, {
+            attr: { x2: ENDX, y2: ENDY },
+            duration: CORD_DURATION,
+            onComplete: () => {
+              if (TRAVELLED > 50) {
+                CORD_TL.restart();
+              } else {
+                RESET();
+              }
+            },
+          });
+        },
+      });
+
+      gsap.set(".lamp", { display: "block" });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "roadmaps": [
+    {
+      "id": "ai-basics",
+      "category": "AI Basics",
+      "icon": "🧠",
+      "description": "Build strong foundations in artificial intelligence.",
+      "topics": [
+        "What is AI?",
+        "Types of AI",
+        "AI vs ML vs DL",
+        "AI Ethics & Bias",
+        "Real-world AI applications"
+      ]
+    },
+    {
+      "id": "machine-learning",
+      "category": "Machine Learning",
+      "icon": "📊",
+      "description": "Learn how machines learn from data.",
+      "topics": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Regression & Classification",
+        "Decision Trees",
+        "K-Means Clustering",
+        "Model Evaluation"
+      ]
+    },
+    {
+      "id": "deep-learning",
+      "category": "Deep Learning",
+      "icon": "🧬",
+      "description": "Dive into neural networks and deep architectures.",
+      "topics": [
+        "Neural Networks",
+        "Activation Functions",
+        "Backpropagation",
+        "CNNs & RNNs",
+        "Introduction to Transformers"
+      ]
+    },
+    {
+      "id": "nlp",
+      "category": "Natural Language Processing",
+      "icon": "💬",
+      "description": "Understand how machines process human language.",
+      "topics": [
+        "Text Preprocessing",
+        "Word Embeddings",
+        "Sentiment Analysis",
+        "Transformers",
+        "Language Models"
+      ]
+    },
+    {
+      "id": "generative-ai",
+      "category": "Generative AI",
+      "icon": "🎨",
+      "description": "Discover how AI creates content.",
+      "topics": [
+        "Prompt Engineering",
+        "LLM Fundamentals",
+        "Text-to-Image Models",
+        "AI Agents",
+        "Responsible AI Usage"
+      ]
+    }
+  ],
+  "stats": {
+    "totalTopics": 120,
+    "totalQuizzes": 30,
+    "tracks": 5
+  },
+  "aiAssistant": {
+    "welcomeMessage": "Hi! I'm your AI Learning Assistant 🤖\nAsk me anything about AI, Machine Learning, NLP, or Generative AI.\nI can explain concepts, suggest next topics, or help you revise."
+  },
+  "typingTexts": [
+    "Learn AI from scratch.",
+    "Master Machine Learning step-by-step.",
+    "Build Deep Learning expertise.",
+    "Understand NLP and Transformers.",
+    "Explore Generative AI and LLMs.",
+    "Become AI-ready for the future."
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "_description": "Firestore Database Structure for AI Learning Guide - Optimized & Scalable",
+  "_version": "2.0",
+  "_notes": [
+    "Uses subcollections for quizResults and progress to enable efficient queries",
+    "All user-specific data is under users/{userId} for security",
+    "Topics and quizzes are public read-only collections",
+    "Timestamps use serverTimestamp() for consistency"
+  ],
+
+  "users": {
+    "_path": "/users/{userId}",
+    "_description": "User profiles with aggregate stats. Document ID = Firebase Auth UID",
+    "_securityRule": "Users can only read/write their own document",
+    "_example": {
+      "uid": "abc123xyz",
+      "name": "YashRaj Anand",
+      "email": "yashraj@email.com",
+      "level": "Beginner",
+      "completedTopics": ["ai_basics_1", "ml_intro"],
+      "averageScore": 82,
+      "totalQuizzes": 15,
+      "currentStreak": 6,
+      "longestStreak": 12,
+      "createdAt": "serverTimestamp()",
+      "lastActiveAt": "serverTimestamp()"
+    },
+    "_subcollections": {
+      "quizResults": {
+        "_path": "/users/{userId}/quizResults/{resultId}",
+        "_description": "Individual quiz attempt records",
+        "_indexed": ["attemptedAt DESC"],
+        "_example": {
+          "quizId": "ml_basics",
+          "score": 4,
+          "total": 5,
+          "percentage": 80,
+          "attemptedAt": "2026-02-13T14:20:00Z"
+        }
+      },
+      "progress": {
+        "_path": "/users/{userId}/progress/{date}",
+        "_description": "Daily progress tracking (date as document ID: YYYY-MM-DD)",
+        "_indexed": ["date DESC"],
+        "_example": {
+          "date": "2026-02-13",
+          "topicsCompleted": ["ml_3", "ml_4"],
+          "quizzesTaken": 2,
+          "totalTimeSpent": 45,
+          "xpEarned": 120
+        }
+      }
+    }
+  },
+
+  "topics": {
+    "_path": "/topics/{topicId}",
+    "_description": "Learning topics/lessons. Read-only for users.",
+    "_indexed": ["category ASC + order ASC", "difficulty ASC + order ASC"],
+    "_example": {
+      "id": "ml_intro",
+      "title": "Introduction to Machine Learning",
+      "category": "Machine Learning",
+      "difficulty": "Beginner",
+      "content": "Machine Learning is a subset of AI...",
+      "estimatedTime": "25 mins",
+      "order": 1,
+      "prerequisites": [],
+      "sections": [
+        {
+          "title": "What is ML?",
+          "content": "Machine Learning enables systems to learn from data..."
+        }
+      ]
+    }
+  },
+
+  "quizzes": {
+    "_path": "/quizzes/{quizId}",
+    "_description": "Quiz questions for topics. Read-only for users.",
+    "_indexed": ["topicId ASC"],
+    "_example": {
+      "id": "ml_basics",
+      "topicId": "ml_intro",
+      "title": "Machine Learning Basics Quiz",
+      "questions": [
+        {
+          "question": "What is supervised learning?",
+          "options": [
+            "Learning without data",
+            "Learning with labeled data",
+            "Random learning",
+            "Manual programming"
+          ],
+          "correctAnswer": 1
+        }
+      ]
+    }
+  },
+
+  "categories": {
+    "_path": "/categories/{categoryId}",
+    "_description": "Topic categories for organization",
+    "_example": {
+      "id": "machine-learning",
+      "name": "Machine Learning",
+      "description": "Learn ML fundamentals and algorithms",
+      "icon": "brain",
+      "order": 2,
+      "topicCount": 15
+    }
+  },
+
+  "roadmaps": {
+    "_path": "/roadmaps/{roadmapId}",
+    "_description": "Learning paths/roadmaps",
+    "_example": {
+      "id": "ai-beginner",
+      "title": "AI Beginner Path",
+      "description": "Start your AI journey from scratch",
+      "topics": ["ai_basics_1", "ml_intro", "ml_supervised"],
+      "estimatedDuration": "4 weeks",
+      "difficulty": "Beginner"
+    }
+  }
+}

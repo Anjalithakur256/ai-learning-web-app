@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, and AI-powered assistance using Gemini API." />
+    <title>AI Learning Guide | Topic</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="index.html">AI Learning Guide</a>
+      <nav class="site-nav" id="siteNav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="profile.html">Profile</a>
+        <a href="about.html">About</a>
+        <a href="login.html" class="button ghost">Login</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="section-header">
+          <h1 id="topicTitle">Topic</h1>
+          <p id="topicSubtitle">Loading topic details...</p>
+        </div>
+        <article class="topic" id="topicContent">
+          <div class="topic-block">
+            <h2>Overview</h2>
+            <p>Loading content from Firestore.</p>
+          </div>
+        </article>
+        <div class="topic-actions">
+          <a class="button" id="topicQuizLink" href="quiz.html">Take quiz</a>
+          <a class="button ghost" href="dashboard.html">Back to dashboard</a>
+        </div>
+      </section>
+    </main>
+
+    <div class="chat-widget" id="chatWidget">
+      <button class="chat-toggle" id="chatToggle">Chat</button>
+      <div class="chat-panel" aria-live="polite">
+        <header>
+          <div>
+            <strong>Gemini Tutor</strong>
+            <span>Ask quick AI questions</span>
+          </div>
+          <button id="chatClose">✕</button>
+        </header>
+        <div class="chat-messages" id="chatMessages"></div>
+        <form id="chatForm">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask about today&apos;s topic..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Send</button>
+        </form>
+        <div class="chat-settings">
+          <label for="chatKey">Gemini API Key</label>
+          <input type="password" id="chatKey" placeholder="Paste key" />
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Built for focused AI learning.</p>
+      <p>Powered by Firebase & Gemini AI.</p>
+      <p>Deployable on Vercel.</p>
+      <p><a href="privacy.html" style="color: var(--accent-2);">Privacy Policy</a></p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/db.js"></script>
+    <script type="module" src="assets/js/chat.js"></script>
+  </body>
+</html>

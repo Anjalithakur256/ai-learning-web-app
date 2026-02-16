@@ -1,0 +1,130 @@
+{
+  "ai-basics": {
+    "id": "ai-basics",
+    "title": "AI Fundamentals Quiz",
+    "subtitle": "Test your understanding of Artificial Intelligence basics.",
+    "questions": [
+      {
+        "prompt": "What does AI stand for?",
+        "options": ["Automated Intelligence", "Artificial Intelligence", "Applied Intelligence", "Advanced Integration"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Which is a subset of AI?",
+        "options": ["Cloud Computing", "Machine Learning", "Web Development", "Database Management"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Bias in AI refers to:",
+        "options": ["Faster processing speed", "Unfair predictions due to skewed data", "Better accuracy", "More training data"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "GPT models are examples of:",
+        "options": ["Database systems", "Operating systems", "Generative AI", "Networking protocols"],
+        "correctIndex": 2
+      },
+      {
+        "prompt": "LLM stands for:",
+        "options": ["Low Latency Machine", "Large Language Model", "Linear Learning Method", "Logical Language Module"],
+        "correctIndex": 1
+      }
+    ]
+  },
+  "machine-learning": {
+    "id": "machine-learning",
+    "title": "Machine Learning Quiz",
+    "subtitle": "Test your knowledge of ML algorithms and concepts.",
+    "questions": [
+      {
+        "prompt": "Supervised learning requires:",
+        "options": ["Unlabeled data", "Labeled data", "No data", "Random data"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Which algorithm is used for classification?",
+        "options": ["K-Means", "Decision Tree", "PCA", "DBSCAN"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Overfitting occurs when:",
+        "options": ["Model performs poorly on all data", "Model performs well on training but poorly on test data", "Model is too simple", "Model uses less data"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "K-Means is used for:",
+        "options": ["Classification", "Clustering", "Regression", "Dimensionality Reduction"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Regression predicts:",
+        "options": ["Categories", "Clusters", "Continuous values", "Labels"],
+        "correctIndex": 2
+      },
+      {
+        "prompt": "Accuracy is used in:",
+        "options": ["Clustering", "Classification", "Dimensionality Reduction", "Feature Engineering"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Overfitting can be reduced by:",
+        "options": ["Adding more features", "Regularization", "Removing validation data", "Increasing model complexity"],
+        "correctIndex": 1
+      }
+    ]
+  },
+  "deep-learning": {
+    "id": "deep-learning",
+    "title": "Deep Learning Quiz",
+    "subtitle": "Test your understanding of neural networks and deep architectures.",
+    "questions": [
+      {
+        "prompt": "CNN is mainly used for:",
+        "options": ["Text Processing", "Image Processing", "Audio Processing", "Database Management"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Backpropagation is used to:",
+        "options": ["Collect data", "Update weights in neural networks", "Create visualizations", "Store models"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Transformer models use:",
+        "options": ["Convolution layers", "Attention mechanism", "Decision trees", "K-nearest neighbors"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Reinforcement learning uses:",
+        "options": ["Labeled data only", "Rewards and penalties", "Clustering algorithms", "Dimensionality reduction"],
+        "correctIndex": 1
+      }
+    ]
+  },
+  "nlp": {
+    "id": "nlp",
+    "title": "Natural Language Processing Quiz",
+    "subtitle": "Test your knowledge of NLP concepts and techniques.",
+    "questions": [
+      {
+        "prompt": "NLP stands for:",
+        "options": ["Neural Learning Process", "Natural Language Processing", "Network Layer Protocol", "Numerical Linear Programming"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Tokenization is used in:",
+        "options": ["Image Processing", "Text Processing", "Audio Processing", "Video Processing"],
+        "correctIndex": 1
+      },
+      {
+        "prompt": "Word embeddings convert text into:",
+        "options": ["Images", "Audio signals", "Numerical vectors", "Binary code"],
+        "correctIndex": 2
+      },
+      {
+        "prompt": "Semantic search uses:",
+        "options": ["Keyword matching only", "Embeddings", "Random search", "Alphabetical sorting"],
+        "correctIndex": 1
+      }
+    ]
+  }
+}

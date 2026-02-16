@@ -1,0 +1,48 @@
+[debug] [2026-02-15T16:57:47.135Z] ----------------------------------------------------------------------
+[debug] [2026-02-15T16:57:47.136Z] Command:       C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2026-02-15T16:57:47.137Z] CLI Version:   15.6.0
+[debug] [2026-02-15T16:57:47.137Z] Platform:      win32
+[debug] [2026-02-15T16:57:47.137Z] Node Version:  v22.18.0
+[debug] [2026-02-15T16:57:47.137Z] Time:          Sun Feb 15 2026 22:27:47 GMT+0530 (India Standard Time)
+[debug] [2026-02-15T16:57:47.137Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\yashr\ai-learning-guide-web-app
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-02-15T16:57:54.183Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-15T16:57:54.183Z] > authorizing via signed-in user (yashraj2004a@gmail.com)
+[debug] [2026-02-15T16:57:54.184Z] Checked if tokens are valid: false, expires at: 1771096595193
+[debug] [2026-02-15T16:57:54.185Z] Checked if tokens are valid: false, expires at: 1771096595193
+[debug] [2026-02-15T16:57:54.185Z] > refreshing access token with scopes: []
+[debug] [2026-02-15T16:57:54.186Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-02-15T16:57:54.186Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-02-15T16:57:54.597Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-02-15T16:57:54.597Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-02-15T16:57:54.603Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ai-learning-guide-web-app [none]
+[debug] [2026-02-15T16:57:55.236Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ai-learning-guide-web-app 403
+[debug] [2026-02-15T16:57:55.236Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ai-learning-guide-web-app {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-02-15T16:57:55.237Z] Request to https://firebase.googleapis.com/v1beta1/projects/ai-learning-guide-web-app had HTTP Error: 403, The caller does not have permission
+[debug] [2026-02-15T16:57:55.539Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/ai-learning-guide-web-app had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\yashr\AppData\Local\nvm\v22.18.0\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\yashr\AppData\Local\nvm\v22.18.0\node_modules\firebase-tools\lib\apiv2.js:330:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project ai-learning-guide-web-app. Please make sure the project exists and your account has permission to access it.

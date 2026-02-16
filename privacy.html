@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Privacy Policy for AI Learning Guide - Learn how we handle and protect your data." />
+    <title>AI Learning Guide | Privacy Policy</title>
+    <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="index.html">AI Learning Guide</a>
+      <nav class="site-nav" id="siteNav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="profile.html">Profile</a>
+        <a href="about.html">About</a>
+        <a href="login.html" class="button ghost">Login</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="section-header">
+          <h1>🔒 Privacy Policy</h1>
+          <p>Last updated: February 2026</p>
+        </div>
+        
+        <div class="panel-card" style="margin-bottom: 2rem;">
+          <p style="line-height: 1.8; color: var(--muted);">
+            <strong style="color: var(--ink);">AI Learning Guide</strong> respects your privacy and ensures secure handling of user data. This policy outlines how we collect, use, and protect your information.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>📋 Information We Collect</h2>
+        </div>
+        <div class="panel-card">
+          <ul class="topic-list">
+            <li>Name and email address (via Firebase Authentication)</li>
+            <li>Learning progress and quiz scores</li>
+            <li>Interaction data with AI assistant</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>🎯 How We Use Your Data</h2>
+        </div>
+        <div class="grid cards">
+          <article class="card">
+            <h3>📊 Personalization</h3>
+            <p>To personalize your learning roadmap based on your progress and preferences.</p>
+          </article>
+          <article class="card">
+            <h3>📈 Performance Tracking</h3>
+            <p>To track quiz performance and provide meaningful progress insights.</p>
+          </article>
+          <article class="card">
+            <h3>🤖 AI Assistance</h3>
+            <p>To provide AI-powered responses using Gemini API for educational guidance.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>🛡 Data Security</h2>
+        </div>
+        <div class="panel-card">
+          <ul class="topic-list">
+            <li>Authentication handled securely by Firebase</li>
+            <li>Firestore database protected with security rules</li>
+            <li>No sensitive data shared with third parties</li>
+            <li>Gemini API used only for generating educational responses</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>💾 Data Storage</h2>
+        </div>
+        <div class="panel-card">
+          <p style="line-height: 1.8; color: var(--muted);">
+            User data is securely stored in <strong style="color: var(--accent-2);">Firebase Firestore</strong> and protected with access control rules. We implement industry-standard security practices to ensure your data remains safe.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>🔗 Third-Party Services</h2>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-title">Authentication</span>
+            <span class="stat-value">Firebase Auth</span>
+          </div>
+          <div class="stat">
+            <span class="stat-title">Database</span>
+            <span class="stat-value">Firestore</span>
+          </div>
+          <div class="stat">
+            <span class="stat-title">AI Assistant</span>
+            <span class="stat-value">Gemini AI</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel-card highlight" style="text-align: center;">
+          <h3 style="margin-top: 0;">✅ Our Commitment</h3>
+          <p style="font-size: 1.1rem; color: var(--ink);">
+            We do not sell, share, or misuse user data.<br/>
+            Your learning journey is private and secure.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>📧 Contact</h2>
+        </div>
+        <div class="panel-card">
+          <p style="color: var(--muted);">
+            For any privacy-related questions or concerns, please contact the developer.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="chat-widget" id="chatWidget">
+      <button class="chat-toggle" id="chatToggle">Chat</button>
+      <div class="chat-panel" aria-live="polite">
+        <header>
+          <div>
+            <strong>Gemini Tutor</strong>
+            <span>Ask quick AI questions</span>
+          </div>
+          <button id="chatClose">✕</button>
+        </header>
+        <div class="chat-messages" id="chatMessages"></div>
+        <form id="chatForm">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask about today's topic..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Send</button>
+        </form>
+        <div class="chat-settings">
+          <label for="chatKey">Gemini API Key</label>
+          <input type="password" id="chatKey" placeholder="Paste key" />
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Built for focused AI learning.</p>
+      <p>Powered by Firebase & Gemini AI.</p>
+      <p>Deployable on Vercel.</p>
+      <p><a href="privacy.html" style="color: var(--accent-2);">Privacy Policy</a></p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/chat.js"></script>
+  </body>
+</html>
