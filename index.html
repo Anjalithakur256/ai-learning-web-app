@@ -8,15 +8,37 @@
     <link rel="stylesheet" href="assets/css/styles.css?v=6" />
   </head>
   <body>
+    <!-- Role-based redirect: teachers → admin panel -->
+    <script type="module">
+      import { auth, db } from './assets/js/db.js';
+      import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      import { getDoc, doc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return; // not logged in, stay on home page
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          if (snap.exists()) {
+            const role = snap.data().role || 'student';
+            if (role === 'teacher' || role === 'admin') {
+              window.location.href = 'teacher-dashboard.html';
+            }
+          }
+        } catch (e) { /* stay on page if lookup fails */ }
+      });
+    </script>
+
     <header class="site-header">
       <a class="logo" href="index.html">AI Learning Guide</a>
       <nav class="site-nav" id="siteNav">
         <a href="index.html" class="active">Home</a>
         <a href="dashboard.html">Dashboard</a>
+        <a href="teacher-dashboard.html" class="teacher-only" style="display: none;">Teacher Dashboard</a>
         <a href="quiz.html">Quiz</a>
+        <a href="chat.html">Chat</a>
         <a href="profile.html">Profile</a>
         <a href="about.html">About</a>
-        <a href="login.html" class="button ghost">Login</a>
+        <a href="login.html" class="button ghost login-only">Login</a>
+        <button id="logoutBtn" class="button ghost auth-only" style="display: none;">Logout</button>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         ☰
@@ -27,10 +49,7 @@
       <section class="hero">
         <div class="hero-content">
           <p class="eyebrow">BUILD FUTURE-READY AI SKILLS</p>
-          <h1 class="typing-container">
-            <span id="typingText">Learn AI from scratch.</span>
-            <span class="typing-cursor">|</span>
-          </h1>
+          <h1>Learn AI from scratch.</h1>
           <p class="subtext">
             A structured AI learning platform designed to take you from fundamentals to real-world implementation. Master core concepts, test your knowledge with quizzes, and get AI-powered guidance tailored to your learning progress.
           </p>
@@ -144,61 +163,51 @@
         </div>
       </section>
 
-      <section class="section split">
-        <div>
-          <h2>📈 Track progress with clarity</h2>
-          <p>
-            Monitor your learning journey with real-time insights. Visualize your quiz performance, topic completion rate, and daily learning streaks to stay consistent and focused.
-          </p>
-          <a class="button" href="dashboard.html">Open Dashboard</a>
-        </div>
-        <div class="stats">
-          <div class="stat">
-            <span class="stat-title">Average Quiz Score</span>
-            <span class="stat-value">82%</span>
-            <span class="stat-desc">Your understanding of core AI concepts is strong. Keep pushing toward mastery.</span>
+      <section class="progress-showcase">
+        <div class="progress-showcase-inner">
+
+          <!-- Left: text + CTA -->
+          <div class="progress-text">
+            <span class="progress-eyebrow">REAL-TIME INSIGHTS</span>
+            <h2>Track progress<br>with clarity</h2>
+            <p>Monitor your learning journey with live data. Visualize quiz scores, topic completion, and daily streaks to stay consistent and reach mastery faster.</p>
+            <a class="button" href="dashboard.html">Open Dashboard</a>
           </div>
-          <div class="stat">
-            <span class="stat-title">Topics Completed</span>
-            <span class="stat-value">14/36</span>
-            <span class="stat-desc">You are making steady progress. Complete remaining modules to unlock advanced tracks.</span>
-          </div>
-          <div class="stat">
-            <span class="stat-title">Current Streak</span>
-            <span class="stat-value">6 Days</span>
-            <span class="stat-desc">Consistency builds expertise. Maintain your daily learning streak.</span>
+
+          <!-- Right: vertical stat cards grid -->
+          <div class="progress-stats-row">
+
+            <div class="pstat">
+              <div class="pstat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <span class="pstat-label">Avg. Quiz Score</span>
+              <span class="pstat-value">82<span class="pstat-unit">%</span></span>
+              <span class="pstat-desc">Core AI concepts are strong &mdash; keep pushing toward mastery.</span>
+            </div>
+
+            <div class="pstat">
+              <div class="pstat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <span class="pstat-label">Topics Completed</span>
+              <span class="pstat-value">14<span class="pstat-unit">/36</span></span>
+              <span class="pstat-desc">Complete remaining modules to unlock advanced tracks.</span>
+            </div>
+
+            <div class="pstat">
+              <div class="pstat-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <span class="pstat-label">Current Streak</span>
+              <span class="pstat-value">6<span class="pstat-unit"> days</span></span>
+              <span class="pstat-desc">Consistency builds expertise. Keep your streak alive.</span>
+            </div>
+
           </div>
         </div>
       </section>
     </main>
-
-    <div class="chat-widget" id="chatWidget">
-      <button class="chat-toggle" id="chatToggle">Chat</button>
-      <div class="chat-panel" aria-live="polite">
-        <header>
-          <div>
-            <strong>Gemini Tutor</strong>
-            <span>Ask quick AI questions</span>
-          </div>
-          <button id="chatClose">✕</button>
-        </header>
-        <div class="chat-messages" id="chatMessages"></div>
-        <form id="chatForm">
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask about today&apos;s topic..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </form>
-        <div class="chat-settings">
-          <label for="chatKey">Gemini API Key</label>
-          <input type="password" id="chatKey" placeholder="Paste key" />
-        </div>
-      </div>
-    </div>
 
     <footer class="site-footer">
       <p>Built for focused AI learning.</p>
@@ -208,53 +217,5 @@
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/chat.js"></script>
-    <script>
-      const typingTexts = [
-        "Learn AI from scratch.",
-        "Master Machine Learning step-by-step.",
-        "Build Deep Learning expertise.",
-        "Understand NLP and Transformers.",
-        "Explore Generative AI and LLMs.",
-        "Become AI-ready for the future."
-      ];
-      
-      const typingElement = document.getElementById('typingText');
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      const typingSpeed = 80;
-      const deletingSpeed = 40;
-      const pauseTime = 2000;
-      
-      function typeText() {
-        const currentText = typingTexts[textIndex];
-        
-        if (isDeleting) {
-          typingElement.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-        } else {
-          typingElement.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-        }
-        
-        let delay = isDeleting ? deletingSpeed : typingSpeed;
-        
-        if (!isDeleting && charIndex === currentText.length) {
-          delay = pauseTime;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % typingTexts.length;
-          delay = 500;
-        }
-        
-        setTimeout(typeText, delay);
-      }
-      
-      if (typingElement) {
-        setTimeout(typeText, 1000);
-      }
-    </script>
   </body>
 </html>

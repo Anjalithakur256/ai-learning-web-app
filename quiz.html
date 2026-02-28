@@ -3,78 +3,696 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, and AI-powered assistance using Gemini API." />
+    <meta name="description" content="AI-powered quiz — pick any AI topic, set the difficulty, and test your knowledge with 10 AI-generated questions." />
     <title>AI Learning Guide | Quiz</title>
-    <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=7" />
+    <style>
+      /* ═══ Quiz page layout ════════════════════════════════ */
+      .quiz-shell {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* ── Step indicators ──────────────────────────────── */
+      .quiz-steps {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 2.5rem;
+      }
+
+      .quiz-step {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-size: 0.84rem;
+        color: var(--muted);
+        font-weight: 500;
+        transition: color 0.25s;
+      }
+
+      .quiz-step.active { color: var(--accent-2); }
+      .quiz-step.done   { color: var(--accent); }
+
+      .step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        transition: all 0.25s;
+        flex-shrink: 0;
+      }
+
+      .quiz-step.active .step-num {
+        border-color: var(--accent-2);
+        background: rgba(125, 210, 166, 0.15);
+        color: var(--accent-2);
+      }
+
+      .quiz-step.done .step-num {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .step-divider {
+        flex: 1;
+        height: 2px;
+        background: var(--line);
+        margin: 0 0.6rem;
+        min-width: 24px;
+      }
+
+      /* ── Panels ───────────────────────────────────────── */
+      .quiz-panel {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .quiz-panel.active { display: block; }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Setup panel ──────────────────────────────────── */
+      .setup-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: var(--radius);
+        padding: 2rem;
+      }
+
+      .setup-card h2 {
+        font-family: var(--font-title);
+        margin: 0 0 0.4rem;
+      }
+
+      .setup-card .lead {
+        color: var(--muted);
+        margin: 0 0 2rem;
+        font-size: 0.95rem;
+      }
+
+      .setup-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .setup-field label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+
+      .setup-field input[type="text"] {
+        background: rgba(255,255,255,0.04);
+        border: 2px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 1rem;
+        color: var(--ink);
+        font-size: 1rem;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.2s;
+      }
+
+      .setup-field input[type="text"]:focus {
+        border-color: var(--glow-color);
+        box-shadow: 0 0 0 3px rgba(71,165,116,0.15);
+      }
+
+      .topic-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.6rem;
+      }
+
+      .topic-chip {
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.04);
+        color: var(--muted);
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+      }
+
+      .topic-chip:hover,
+      .topic-chip.selected {
+        background: rgba(71,165,116,0.18);
+        border-color: var(--glow-color);
+        color: var(--accent-2);
+      }
+
+      /* difficulty buttons */
+      .difficulty-group {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .diff-btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 0.7rem 1rem;
+        border-radius: var(--radius-sm);
+        border: 2px solid var(--line);
+        background: rgba(255,255,255,0.03);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+
+      .diff-btn:hover { border-color: var(--glow-color); color: var(--ink); }
+
+      .diff-btn.selected.easy   { background: rgba(100,220,120,0.14); border-color: #64dc78; color: #64dc78; }
+      .diff-btn.selected.medium { background: rgba(255,185,50,0.14);  border-color: #ffb932; color: #ffb932; }
+      .diff-btn.selected.hard   { background: rgba(255,90,90,0.14);   border-color: #ff5a5a; color: #ff5a5a; }
+
+      .generate-row {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      /* ── Generating loader ────────────────────────────── */
+      .gen-loader {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 3rem 1rem;
+        text-align: center;
+      }
+
+      .gen-loader.active { display: flex; }
+
+      .gen-spinner {
+        width: 52px;
+        height: 52px;
+        border: 4px solid var(--line);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.85s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .gen-loader p { color: var(--muted); font-size: 0.95rem; margin: 0; }
+      .gen-loader strong { color: var(--accent-2); font-size: 1.05rem; }
+
+      /* ── Quiz questions panel ──────────────────────────── */
+      .quiz-meta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+        flex-wrap: wrap;
+      }
+
+      .quiz-meta-bar h2 {
+        font-family: var(--font-title);
+        margin: 0;
+        font-size: 1.4rem;
+      }
+
+      .quiz-badges {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .q-badge {
+        padding: 0.28rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .q-badge.topic  { background: rgba(71,165,116,0.18);  color: var(--accent-2); border: 1px solid rgba(71,165,116,0.3); }
+      .q-badge.easy   { background: rgba(100,220,120,0.14); color: #64dc78; border: 1px solid rgba(100,220,120,0.3); }
+      .q-badge.medium { background: rgba(255,185,50,0.14);  color: #ffb932; border: 1px solid rgba(255,185,50,0.3); }
+      .q-badge.hard   { background: rgba(255,90,90,0.14);   color: #ff5a5a; border: 1px solid rgba(255,90,90,0.3); }
+
+      /* progress bar */
+      .q-progress-bar {
+        height: 4px;
+        background: var(--line);
+        border-radius: 999px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+
+      .q-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        border-radius: 999px;
+        transition: width 0.4s ease;
+        width: 0%;
+      }
+
+      /* question card */
+      .q-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.75rem;
+        margin-bottom: 1.25rem;
+        transition: border-color 0.2s;
+      }
+
+      .q-card:hover { border-color: rgba(71,165,116,0.3); }
+      .q-card.answered { border-color: rgba(71,165,116,0.45); }
+
+      .q-number {
+        font-size: 0.78rem;
+        color: var(--accent-2);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 0.7rem;
+      }
+
+      .q-prompt {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0 0 1.25rem;
+        line-height: 1.6;
+        color: var(--ink);
+      }
+
+      .q-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .q-option {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.7rem 1rem;
+        border-radius: var(--radius-sm);
+        border: 2px solid var(--line);
+        background: rgba(255,255,255,0.02);
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+      }
+
+      .q-option:hover {
+        border-color: rgba(71,165,116,0.4);
+        background: rgba(71,165,116,0.06);
+      }
+
+      .q-option input[type="radio"] { display: none; }
+
+      .q-option.selected {
+        border-color: var(--glow-color);
+        background: rgba(71,165,116,0.12);
+      }
+
+      .q-radio-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s;
+      }
+
+      .q-option.selected .q-radio-dot {
+        border-color: var(--accent);
+        background: var(--accent);
+      }
+
+      .q-radio-dot::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .q-option.selected .q-radio-dot::after { opacity: 1; }
+
+      .q-option-text { font-size: 0.95rem; color: var(--ink); }
+
+      .quiz-submit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .answered-count {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .answered-count span { color: var(--accent-2); font-weight: 700; }
+
+      /* ── Results panel ────────────────────────────────── */
+      .result-hero {
+        background: linear-gradient(135deg, rgba(71,165,116,0.15), rgba(18,25,33,0.9));
+        border: 2px solid var(--glow-color);
+        border-radius: var(--radius);
+        padding: 2.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 32px rgba(71,165,116,0.2);
+      }
+
+      .result-score-circle {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 4px solid var(--glow-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        background: rgba(71,165,116,0.1);
+        box-shadow: 0 0 24px rgba(71,165,116,0.3);
+      }
+
+      .result-score-pct {
+        font-family: var(--font-title);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-2);
+        line-height: 1;
+      }
+
+      .result-score-sub {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+
+      .result-hero h2 {
+        font-family: var(--font-title);
+        font-size: 1.5rem;
+        margin: 0 0 0.5rem;
+      }
+
+      .result-feedback {
+        color: var(--muted);
+        font-size: 0.95rem;
+        max-width: 420px;
+        margin: 0 auto 1.5rem;
+        line-height: 1.7;
+      }
+
+      .result-stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      .result-stat {
+        text-align: center;
+      }
+
+      .result-stat-val {
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: var(--font-title);
+      }
+
+      .result-stat-val.correct { color: #64dc78; }
+      .result-stat-val.wrong   { color: #ff6b6b; }
+
+      .result-stat-lbl {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 0.2rem;
+      }
+
+      /* answer breakdown */
+      .breakdown-title {
+        font-family: var(--font-title);
+        font-size: 1.1rem;
+        margin: 0 0 1.1rem;
+      }
+
+      .breakdown-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: border-color 0.2s;
+      }
+
+      .breakdown-card.correct { border-left-color: #64dc78; }
+      .breakdown-card.wrong   { border-left-color: #ff6b6b; }
+
+      .breakdown-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .breakdown-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .breakdown-icon.correct { background: rgba(100,220,120,0.2); color: #64dc78; }
+      .breakdown-icon.wrong   { background: rgba(255,100,100,0.2); color: #ff6b6b; }
+
+      .breakdown-q {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.55;
+        color: var(--ink);
+      }
+
+      .breakdown-answers {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-bottom: 0.85rem;
+        padding-left: 0.25rem;
+      }
+
+      .ans-row {
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .ans-row .lbl { color: var(--muted); flex-shrink: 0; }
+      .ans-row.your-wrong .val { color: #ff6b6b; }
+      .ans-row.correct-ans .val { color: #64dc78; }
+
+      .explanation-box {
+        background: rgba(71,165,116,0.06);
+        border: 1px solid rgba(71,165,116,0.2);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .explanation-box strong { color: var(--accent-2); }
+
+      .result-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        flex-wrap: wrap;
+      }
+    </style>
   </head>
   <body>
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { auth } from './assets/js/db.js';
+      import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname);
+        }
+      });
+    </script>
+
     <header class="site-header">
       <a class="logo" href="index.html">AI Learning Guide</a>
       <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
+        <a href="teacher-dashboard.html" class="teacher-only" style="display: none;">Teacher Dashboard</a>
         <a href="quiz.html" class="active">Quiz</a>
+        <a href="chat.html">Chat</a>
         <a href="profile.html">Profile</a>
         <a href="about.html">About</a>
-        <a href="login.html" class="button ghost">Login</a>
+        <a href="login.html" class="button ghost login-only">Login</a>
+        <button id="logoutBtn" class="button ghost auth-only" style="display: none;">Logout</button>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        ☰
-      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
     </header>
 
     <main>
-      <section class="section">
-        <div class="section-header">
-          <h1 id="quizTitle">🧪 Test Your Knowledge</h1>
-          <p id="quizSubtitle">Select the correct answer for each question. Your score will be calculated instantly after submission.</p>
-        </div>
-        <form class="quiz" id="quizForm"></form>
-        <div class="quiz-actions">
-          <button class="button" id="submitQuiz">Submit answers</button>
-          <a class="button ghost" href="dashboard.html">Back to dashboard</a>
-        </div>
-        <div class="quiz-result" id="quizResult"></div>
-      </section>
-    </main>
+      <div class="quiz-shell section" style="margin-top: 2rem;">
 
-    <div class="chat-widget" id="chatWidget">
-      <button class="chat-toggle" id="chatToggle">Chat</button>
-      <div class="chat-panel" aria-live="polite">
-        <header>
-          <div>
-            <strong>Gemini Tutor</strong>
-            <span>Ask quick AI questions</span>
+        <!-- ── Step indicators ── -->
+        <div class="quiz-steps">
+          <div class="quiz-step active" id="step1">
+            <div class="step-num">1</div>
+            <span>Setup</span>
           </div>
-          <button id="chatClose">✕</button>
-        </header>
-        <div class="chat-messages" id="chatMessages"></div>
-        <form id="chatForm">
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask about today&apos;s topic..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </form>
-        <div class="chat-settings">
-          <label for="chatKey">Gemini API Key</label>
-          <input type="password" id="chatKey" placeholder="Paste key" />
+          <div class="step-divider"></div>
+          <div class="quiz-step" id="step2">
+            <div class="step-num">2</div>
+            <span>Quiz</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="quiz-step" id="step3">
+            <div class="step-num">3</div>
+            <span>Results</span>
+          </div>
         </div>
+
+        <!-- ════ PANEL 1 — Setup ════ -->
+        <div class="quiz-panel active" id="panel-setup">
+          <div class="setup-card">
+            <h2>🧠 AI-Powered Quiz</h2>
+            <p class="lead">Enter any AI-related topic, choose a difficulty level, and your personalized 10-question quiz will be generated instantly.</p>
+
+            <!-- Topic -->
+            <div class="setup-field">
+              <label for="topicInput">Topic</label>
+              <input type="text" id="topicInput" placeholder="e.g. Backpropagation, Transformers, Reinforcement Learning…" autocomplete="off" />
+              <div class="topic-chips" id="topicChips">
+                <span class="topic-chip" data-topic="Machine Learning">Machine Learning</span>
+                <span class="topic-chip" data-topic="Neural Networks">Neural Networks</span>
+                <span class="topic-chip" data-topic="Transformers">Transformers</span>
+                <span class="topic-chip" data-topic="Backpropagation">Backpropagation</span>
+                <span class="topic-chip" data-topic="Computer Vision">Computer Vision</span>
+                <span class="topic-chip" data-topic="NLP">NLP</span>
+                <span class="topic-chip" data-topic="Reinforcement Learning">Reinforcement Learning</span>
+                <span class="topic-chip" data-topic="CNNs">CNNs</span>
+                <span class="topic-chip" data-topic="Generative AI">Generative AI</span>
+                <span class="topic-chip" data-topic="AI Ethics">AI Ethics</span>
+              </div>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="setup-field">
+              <label>Difficulty</label>
+              <div class="difficulty-group">
+                <button class="diff-btn easy selected" data-diff="easy">🟢 Easy</button>
+                <button class="diff-btn medium" data-diff="medium">🟡 Medium</button>
+                <button class="diff-btn hard" data-diff="hard">🔴 Hard</button>
+              </div>
+            </div>
+
+            <div class="generate-row">
+              <button class="button" id="generateBtn">✨ Generate Quiz</button>
+              <span style="font-size:0.83rem; color:var(--muted);">10 multiple-choice questions • AI evaluated</span>
+            </div>
+          </div>
+
+          <!-- Loading state (shown during generation) -->
+          <div class="gen-loader" id="genLoader">
+            <div class="gen-spinner"></div>
+            <strong id="genLoaderTopic">Generating your quiz…</strong>
+            <p>AI is crafting 10 questions on your topic. This takes a few seconds.</p>
+          </div>
+        </div>
+
+        <!-- ════ PANEL 2 — Questions ════ -->
+        <div class="quiz-panel" id="panel-quiz">
+          <div class="quiz-meta-bar">
+            <h2 id="quizTitle">Quiz</h2>
+            <div class="quiz-badges">
+              <span class="q-badge topic" id="quizTopicBadge">Topic</span>
+              <span class="q-badge easy"  id="quizDiffBadge">Easy</span>
+            </div>
+          </div>
+
+          <div class="q-progress-bar">
+            <div class="q-progress-fill" id="qProgressFill"></div>
+          </div>
+
+          <form id="quizForm">
+            <!-- Questions injected here by JS -->
+          </form>
+
+          <div class="quiz-submit-row">
+            <div class="answered-count">
+              Answered: <span id="answeredCount">0</span> / <span id="totalCount">10</span>
+            </div>
+            <button class="button" id="submitQuizBtn">Submit &amp; See Results</button>
+          </div>
+        </div>
+
+        <!-- ════ PANEL 3 — Results ════ -->
+        <div class="quiz-panel" id="panel-results">
+          <!-- Score hero populated by JS -->
+          <div id="resultHero"></div>
+          <!-- Breakdown populated by JS -->
+          <div id="resultBreakdown"></div>
+          <div class="result-actions">
+            <button class="button" id="retakeBtn">↺ Retake Quiz</button>
+            <button class="button ghost" id="newTopicBtn">+ New Topic</button>
+            <a class="button ghost" href="dashboard.html">📊 Dashboard</a>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </main>
 
     <footer class="site-footer">
       <p>Built for focused AI learning.</p>
-      <p>Powered by Firebase & Gemini AI.</p>
+      <p>Powered by Firebase &amp; Gemini AI.</p>
       <p>Deployable on Vercel.</p>
       <p><a href="privacy.html" style="color: var(--accent-2);">Privacy Policy</a></p>
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>
     <script type="module" src="assets/js/quiz.js"></script>
-    <script type="module" src="assets/js/chat.js"></script>
   </body>
 </html>

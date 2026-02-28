@@ -13,10 +13,13 @@
       <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
+        <a href="teacher-dashboard.html" class="teacher-only" style="display: none;">Teacher Dashboard</a>
         <a href="quiz.html">Quiz</a>
+        <a href="chat.html">Chat</a>
         <a href="profile.html">Profile</a>
         <a href="about.html">About</a>
-        <a href="login.html" class="button ghost">Login</a>
+        <a href="login.html" class="button ghost login-only">Login</a>
+        <button id="logoutBtn" class="button ghost auth-only" style="display: none;">Logout</button>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         ☰
@@ -137,34 +140,6 @@
       </section>
     </main>
 
-    <div class="chat-widget" id="chatWidget">
-      <button class="chat-toggle" id="chatToggle">Chat</button>
-      <div class="chat-panel" aria-live="polite">
-        <header>
-          <div>
-            <strong>Gemini Tutor</strong>
-            <span>Ask quick AI questions</span>
-          </div>
-          <button id="chatClose">✕</button>
-        </header>
-        <div class="chat-messages" id="chatMessages"></div>
-        <form id="chatForm">
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask about today's topic..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </form>
-        <div class="chat-settings">
-          <label for="chatKey">Gemini API Key</label>
-          <input type="password" id="chatKey" placeholder="Paste key" />
-        </div>
-      </div>
-    </div>
-
     <footer class="site-footer">
       <p>Built for focused AI learning.</p>
       <p>Powered by Firebase & Gemini AI.</p>
@@ -173,6 +148,5 @@
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/chat.js"></script>
   </body>
 </html>

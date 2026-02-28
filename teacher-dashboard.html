@@ -1,0 +1,851 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="AI Learning Guide - Admin / Teacher Control Panel." />
+    <title>AI Learning Guide | Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* â”€â”€ Admin Panel Reset & Variables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --adm-bg: #121921;
+        --adm-surface: #1b232d;
+        --adm-card: #232d39;
+        --adm-border: rgba(71,165,116,0.25);
+        --adm-accent: #47a574;
+        --adm-accent2: #7dd2a6;
+        --adm-accent3: #a8edd0;
+        --adm-ink: #ffffff;
+        --adm-muted: #aaaaaa;
+        --adm-green: #47a574;
+        --adm-yellow:   #fbbf24;
+        --adm-red:      #f87171;
+        --adm-blue:     #60a5fa;
+        --adm-radius:   14px;
+        --adm-font:     'Space Grotesk', system-ui, sans-serif;
+        --adm-header-h: 64px;
+      }
+
+      body {
+        font-family: var(--adm-font);
+        background: var(--adm-bg);
+        color: var(--adm-ink);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* â”€â”€ Admin Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-header {
+        height: var(--adm-header-h);
+        background: var(--adm-surface);
+        border-bottom: 1px solid var(--adm-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+      }
+
+      .adm-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: var(--adm-ink);
+      }
+
+      .adm-logo-badge {
+        background: linear-gradient(135deg, var(--adm-accent), var(--adm-accent2));
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+      }
+
+      .adm-logo-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--adm-ink);
+      }
+
+      .adm-header-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .adm-nav-link {
+        padding: 0.45rem 1rem;
+        border-radius: 8px;
+        color: var(--adm-muted);
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+        transition: background 0.18s, color 0.18s;
+      }
+
+      .adm-nav-link:hover, .adm-nav-link.active {
+        background: rgba(71,165,116,0.15);
+        color: var(--adm-accent3);
+      }
+
+      .adm-header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .adm-user-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(71,165,116,0.12);
+        border: 1px solid var(--adm-border);
+        border-radius: 999px;
+        padding: 0.35rem 1rem 0.35rem 0.5rem;
+        font-size: 0.85rem;
+        color: var(--adm-accent3);
+      }
+
+      .adm-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--adm-accent), var(--adm-accent2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .adm-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 1.1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.18s, transform 0.12s;
+        text-decoration: none;
+      }
+
+      .adm-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+      .adm-btn-ghost {
+        background: transparent;
+        border: 1px solid var(--adm-border);
+        color: var(--adm-muted);
+      }
+
+      .adm-btn-ghost:hover { color: var(--adm-ink); border-color: var(--adm-accent); }
+
+      /* â”€â”€ Main layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-main {
+        flex: 1;
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem 2rem 4rem;
+      }
+
+      /* â”€â”€ Page title bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-page-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--adm-border);
+      }
+
+      .adm-page-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+
+      .adm-page-title .title-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(71,165,116,0.3), rgba(167,139,250,0.2));
+        border: 1px solid var(--adm-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .adm-live-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        color: var(--adm-green);
+        background: rgba(52,211,153,0.1);
+        border: 1px solid rgba(52,211,153,0.3);
+        border-radius: 999px;
+        padding: 0.25rem 0.75rem;
+        font-weight: 600;
+      }
+
+      .adm-live-dot::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--adm-green);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.85); }
+      }
+
+      /* â”€â”€ Stats grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .adm-stat-card {
+        background: var(--adm-card);
+        border: 1px solid var(--adm-border);
+        border-radius: var(--adm-radius);
+        padding: 1.5rem 1.5rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.18s;
+      }
+
+      .adm-stat-card:hover { border-color: var(--adm-accent); transform: translateY(-2px); }
+
+      .adm-stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--adm-accent), var(--adm-accent2));
+        border-radius: var(--adm-radius) var(--adm-radius) 0 0;
+      }
+
+      .adm-stat-card.green::before { background: linear-gradient(90deg, #059669, var(--adm-green)); }
+      .adm-stat-card.yellow::before { background: linear-gradient(90deg, #d97706, var(--adm-yellow)); }
+      .adm-stat-card.red::before { background: linear-gradient(90deg, #dc2626, var(--adm-red)); }
+      .adm-stat-card.blue::before { background: linear-gradient(90deg, #2563eb, var(--adm-blue)); }
+
+      .adm-stat-label {
+        font-size: 0.73rem;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--adm-muted);
+      }
+
+      .adm-stat-value {
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--adm-ink);
+      }
+
+      .adm-stat-sub {
+        font-size: 0.78rem;
+        color: var(--adm-muted);
+      }
+
+      /* â”€â”€ Panel card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-panel {
+        background: var(--adm-card);
+        border: 1px solid var(--adm-border);
+        border-radius: var(--adm-radius);
+        padding: 1.75rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .adm-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .adm-panel-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--adm-ink);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .adm-panel-title-icon {
+        font-size: 1rem;
+      }
+
+      .adm-panel-subtitle {
+        font-size: 0.82rem;
+        color: var(--adm-muted);
+        margin-top: 0.2rem;
+      }
+
+      /* â”€â”€ Charts side-by-side â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-charts-row {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 1.5rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .adm-chart-wrap {
+        position: relative;
+        height: 300px;
+      }
+
+      /* â”€â”€ Search bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-search-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+      }
+
+      .adm-search {
+        flex: 1;
+        min-width: 200px;
+        position: relative;
+      }
+
+      .adm-search input {
+        width: 100%;
+        background: var(--adm-surface);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+        padding: 0.6rem 1rem 0.6rem 2.6rem;
+        color: var(--adm-ink);
+        font-family: var(--adm-font);
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .adm-search input:focus { border-color: var(--adm-accent); }
+      .adm-search input::placeholder { color: var(--adm-muted); }
+
+      .adm-search-icon {
+        position: absolute;
+        left: 0.85rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--adm-muted);
+        font-size: 0.9rem;
+        pointer-events: none;
+      }
+
+      .adm-filter-select {
+        background: var(--adm-surface);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        color: var(--adm-ink);
+        font-family: var(--adm-font);
+        font-size: 0.85rem;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+
+      .adm-filter-select:focus { border-color: var(--adm-accent); }
+      .adm-filter-select option { background: var(--adm-surface); }
+
+      /* â”€â”€ Student table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-table-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .adm-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        min-width: 680px;
+      }
+
+      .adm-table thead {
+        background: rgba(71,165,116,0.08);
+      }
+
+      .adm-table th {
+        padding: 0.85rem 1.1rem;
+        text-align: left;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--adm-accent3);
+        white-space: nowrap;
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.15s;
+      }
+
+      .adm-table th:hover { color: #fff; }
+
+      .adm-table td {
+        padding: 0.9rem 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        color: var(--adm-ink);
+        vertical-align: middle;
+      }
+
+      .adm-table tbody tr:last-child td { border-bottom: none; }
+
+      .adm-table tbody tr {
+        transition: background 0.15s;
+      }
+
+      .adm-table tbody tr:hover td {
+        background: rgba(71,165,116,0.06);
+      }
+
+      .adm-progress-bar {
+        width: 100%;
+        height: 5px;
+        background: rgba(255,255,255,0.07);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+      }
+
+      .adm-progress-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--adm-accent), var(--adm-accent2));
+        transition: width 0.5s ease;
+      }
+
+      /* â”€â”€ Badges â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.28rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .adm-badge-excellent { background: rgba(52,211,153,0.15); color: var(--adm-green); border: 1px solid rgba(52,211,153,0.3); }
+      .adm-badge-good      { background: rgba(96,165,250,0.15); color: var(--adm-blue);  border: 1px solid rgba(96,165,250,0.3); }
+      .adm-badge-average   { background: rgba(251,191,36,0.15);  color: var(--adm-yellow);border: 1px solid rgba(251,191,36,0.3); }
+      .adm-badge-needs-help{ background: rgba(248,113,113,0.15); color: var(--adm-red);  border: 1px solid rgba(248,113,113,0.3); }
+
+      /* â”€â”€ Empty & loading states â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--adm-muted);
+        font-size: 0.92rem;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .adm-spinner {
+        display: inline-block;
+        width: 18px; height: 18px;
+        border: 2px solid rgba(71,165,116,0.2);
+        border-top-color: var(--adm-accent);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+
+      /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+      .adm-footer {
+        text-align: center;
+        padding: 1.5rem;
+        color: var(--adm-muted);
+        font-size: 0.78rem;
+        border-top: 1px solid var(--adm-border);
+      }
+
+      .adm-footer a { color: var(--adm-accent3); text-decoration: none; }
+
+      /* Hamburger button */
+      .adm-menu-btn {
+        display: none;
+        width: 36px; height: 36px;
+        background: rgba(71,165,116,0.1);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        color: var(--adm-ink);
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .adm-menu-btn:hover { background: rgba(71,165,116,0.22); border-color: var(--adm-accent); }
+
+      /* Mobile nav dropdown */
+      .adm-mobile-nav {
+        display: none;
+        position: fixed;
+        top: var(--adm-header-h, 64px);
+        left: 0; right: 0;
+        background: var(--adm-surface);
+        border-bottom: 2px solid var(--adm-border);
+        flex-direction: column;
+        padding: 0.6rem 1rem 1rem;
+        gap: 0.3rem;
+        z-index: 99;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      }
+      .adm-mobile-nav.open { display: flex; }
+      .adm-mobile-nav .adm-nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.92rem;
+        border-radius: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+      .adm-mobile-nav-divider { height:1px; background:var(--adm-border); margin:0.4rem 0; }
+      .adm-mobile-logout {
+        background: transparent;
+        border: 1px solid var(--adm-border);
+        border-radius: 10px;
+        color: var(--adm-muted);
+        padding: 0.7rem 1rem;
+        font-size: 0.92rem;
+        font-family: var(--adm-font);
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.18s;
+        width: 100%;
+      }
+      .adm-mobile-logout:hover { color:var(--adm-ink); border-color:var(--adm-accent); background:rgba(71,165,116,0.1); }
+
+      /* Export button */
+      .adm-export-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.38rem 0.9rem;
+        background: linear-gradient(135deg, rgba(71,165,116,0.18), rgba(71,165,116,0.08));
+        border: 1px solid rgba(71,165,116,0.5);
+        border-radius: 999px;
+        color: var(--adm-green, #47a574);
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: var(--adm-font);
+        cursor: pointer;
+        transition: all 0.18s ease;
+        white-space: nowrap;
+      }
+      .adm-export-btn:hover {
+        background: linear-gradient(135deg, rgba(71,165,116,0.35), rgba(71,165,116,0.15));
+        border-color: var(--adm-accent, #47a574);
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(71,165,116,0.25);
+      }
+      .adm-export-btn:active { transform: translateY(0); box-shadow: none; }
+
+      @media (max-width: 900px) {
+        .adm-charts-row { grid-template-columns: 1fr; }
+        .adm-page-header { flex-direction: column; align-items: flex-start; }
+        .adm-main { padding: 1.25rem 1rem 3rem; }
+        .adm-header { padding: 0 1rem; }
+        .adm-header-nav { display: none; }
+        .adm-menu-btn { display: flex; }
+      }
+      @media (max-width: 600px) {
+        .adm-stats { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .adm-stat-value { font-size: 1.75rem; }
+        .adm-panel { padding: 1.1rem; }
+        .adm-panel-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .adm-search-row { flex-direction: column; align-items: stretch; }
+        .adm-filter-select { width: 100%; }
+        .adm-main { padding: 0.85rem 0.75rem 3rem; }
+        .adm-logo-name { font-size: 0.9rem; }
+        .adm-user-pill { padding: 0.28rem 0.6rem 0.28rem 0.4rem; }
+        .adm-user-pill > span[id] { display: none; }
+        .adm-user-pill > span[style] { display: none !important; }
+        .adm-btn-ghost { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+      }
+      @media (max-width: 440px) {
+        .adm-stats { grid-template-columns: 1fr; }
+        .adm-user-pill { display: none; }
+        .adm-stat-value { font-size: 1.55rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Auth guard: only teacher/admin can access -->
+    <script type="module">
+      import { auth, db } from './assets/js/db.js';
+      import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      import { getDoc, doc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) { window.location.href = 'login.html'; return; }
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          const role = snap.exists() ? (snap.data().role || 'student') : 'student';
+          if (role !== 'teacher' && role !== 'admin') {
+            window.location.href = 'dashboard.html';
+            return;
+          }
+          // Populate admin user pill
+          const name = snap.data()?.name || snap.data()?.displayName || user.email?.split('@')[0] || 'Admin';
+          const initials = name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+          const avatarEl = document.getElementById('adminAvatar');
+          const nameEl   = document.getElementById('adminName');
+          if (avatarEl) avatarEl.textContent = initials;
+          if (nameEl)   nameEl.textContent   = name;
+          document.getElementById('adminRoleLabel').textContent = role === 'admin' ? 'Admin' : 'Teacher';
+        } catch(e) { console.warn(e); }
+      });
+    </script>
+
+    <!-- â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <header class="adm-header">
+      <a class="adm-logo" href="index.html">
+        <span class="adm-logo-badge">Admin</span>
+        <span class="adm-logo-name">AI Learning Guide</span>
+      </a>
+
+      <nav class="adm-header-nav">
+        <a class="adm-nav-link active" href="teacher-dashboard.html">Dashboard</a>
+        <a class="adm-nav-link" href="chat.html">Chat</a>
+        <a class="adm-nav-link" href="profile.html">Profile</a>
+        <a class="adm-nav-link" href="about.html">About</a>
+      </nav>
+
+      <div class="adm-header-right">
+        <div class="adm-user-pill">
+          <div class="adm-avatar" id="adminAvatar">?</div>
+          <span id="adminName">Loading&#8230;</span>
+          <span style="font-size:0.7rem; color:var(--adm-muted); margin-left:0.25rem;" id="adminRoleLabel">&#8212;</span>
+        </div>
+        <button class="adm-btn adm-btn-ghost" id="adminLogoutBtn">Logout</button>
+        <button class="adm-menu-btn" id="admMenuBtn" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </header>
+    <!-- Mobile nav (admin) -->
+    <nav class="adm-mobile-nav" id="admMobileNav" aria-label="Admin mobile navigation">
+      <a class="adm-nav-link active" href="teacher-dashboard.html">Dashboard</a>
+      <a class="adm-nav-link" href="chat.html">Chat</a>
+      <a class="adm-nav-link" href="profile.html">Profile</a>
+      <a class="adm-nav-link" href="about.html">About</a>
+      <div class="adm-mobile-nav-divider"></div>
+      <button class="adm-mobile-logout" id="admMobileLogout">Logout</button>
+    </nav>
+    <script>
+      (function() {
+        var btn = document.getElementById('admMenuBtn');
+        var nav = document.getElementById('admMobileNav');
+        if (btn && nav) {
+          btn.addEventListener('click', function(e) { e.stopPropagation(); nav.classList.toggle('open'); });
+          document.addEventListener('click', function(e) {
+            if (!e.target.closest('.adm-header') && !e.target.closest('#admMobileNav')) nav.classList.remove('open');
+          });
+        }
+        document.getElementById('admMobileLogout')?.addEventListener('click', function() {
+          document.getElementById('adminLogoutBtn')?.click();
+        });
+      })();
+    </script>
+
+    <!-- â”€â”€ Main â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <main class="adm-main">
+
+      <!-- Page header -->
+      <div class="adm-page-header">
+        <div>
+          <h1 class="adm-page-title">
+            <span class="title-icon">🖥️</span>
+            Control Panel
+          </h1>
+          <p style="color:var(--adm-muted); font-size:0.88rem; margin-top:0.4rem;">
+            Monitor student performance and platform activity in real time.
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+          <span class="adm-live-dot" id="lastUpdated">Connecting&#8230;</span>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="adm-stats">
+        <div class="adm-stat-card blue">
+          <div class="adm-stat-label">Total Students</div>
+          <div class="adm-stat-value" id="totalStudents">--</div>
+          <div class="adm-stat-sub">Registered with role = student</div>
+        </div>
+        <div class="adm-stat-card green">
+          <div class="adm-stat-label">Class Average</div>
+          <div class="adm-stat-value" id="classAverage">--</div>
+          <div class="adm-stat-sub">Across all quiz attempts</div>
+        </div>
+        <div class="adm-stat-card">
+          <div class="adm-stat-label">Avg. Progress</div>
+          <div class="adm-stat-value" id="weeklyProgress">--</div>
+          <div class="adm-stat-sub">Topics completed vs target</div>
+        </div>
+        <div class="adm-stat-card yellow">
+          <div class="adm-stat-label">Topics Covered</div>
+          <div class="adm-stat-value" id="topicsCovered">--</div>
+          <div class="adm-stat-sub">Unique topics completed</div>
+        </div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="adm-charts-row">
+        <div class="adm-panel" style="margin-bottom:0;">
+          <div class="adm-panel-header">
+            <div>
+              <div class="adm-panel-title"><span class="adm-panel-title-icon">&#x1F4CA;</span> Topic Completion Rate</div>
+              <div class="adm-panel-subtitle">% of students who completed each topic</div>
+            </div>
+          </div>
+          <div class="adm-chart-wrap">
+            <canvas id="topicPerformanceChart"></canvas>
+          </div>
+        </div>
+
+        <div class="adm-panel" style="margin-bottom:0;">
+          <div class="adm-panel-header">
+            <div>
+              <div class="adm-panel-title"><span class="adm-panel-title-icon">&#x1F3AF;</span> Performance Bands</div>
+              <div class="adm-panel-subtitle">Students by score bracket</div>
+            </div>
+          </div>
+          <div class="adm-chart-wrap">
+            <canvas id="performanceDistributionChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student table panel -->
+      <div class="adm-panel">
+        <div class="adm-panel-header">
+          <div>
+            <div class="adm-panel-title"><span class="adm-panel-title-icon">&#x1F9D1;&#x200D;&#x1F393;</span> Student Roster</div>
+            <div class="adm-panel-subtitle">All registered student accounts &#8212; sorted by score</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <span id="studentCount" style="font-size:0.8rem; color:var(--adm-muted); background:rgba(71,165,116,0.1); border:1px solid var(--adm-border); border-radius:999px; padding:0.25rem 0.75rem;"></span>
+            <button class="adm-export-btn" id="exportExcelBtn" title="Export current view to Excel">
+              <span style="font-size:0.9rem;">&#x1F4E5;</span> Export Excel
+            </button>
+          </div>
+        </div>
+
+        <!-- Search + filter -->
+        <div class="adm-search-row">
+          <div class="adm-search">
+            <span class="adm-search-icon">&#x1F50D;</span>
+            <input type="text" id="studentSearch" placeholder="Search by name or email&#8230;" />
+          </div>
+          <select class="adm-filter-select" id="statusFilter">
+            <option value="all">All statuses</option>
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="average">Average</option>
+            <option value="needs-help">Needs Help</option>
+          </select>
+          <select class="adm-filter-select" id="levelFilter">
+            <option value="all">All levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+
+        <div class="adm-table-wrap">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Avg. Score</th>
+                <th>Progress</th>
+                <th>Quizzes</th>
+                <th>Topics</th>
+                <th>Level</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <tr>
+                <td colspan="8" class="adm-empty">
+                      <div class="adm-spinner"></div>Connecting to database&#8230;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="adm-footer">
+      AI Learning Guide &#8212; Admin Panel &nbsp;|&nbsp; Powered by Firebase &amp; Gemini AI &nbsp;|&nbsp;
+      <a href="privacy.html">Privacy Policy</a>
+    </footer>
+
+    <script type="module">
+      import { auth } from './assets/js/db.js';
+      import { signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      document.getElementById('adminLogoutBtn')?.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+      });
+    </script>
+
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script type="module" src="assets/js/teacher-dashboard.js"></script>
+  </body>
+</html>

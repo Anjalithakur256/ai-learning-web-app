@@ -1,121 +1,795 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, and AI-powered assistance using Gemini API." />
+    <meta name="description" content="Your AI Learning Guide profile — manage your account, view your role, and update preferences." />
     <title>AI Learning Guide | Profile</title>
-    <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=7" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* ── Profile page styles ─────────────────────────────── */
+      .profile-hero {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, rgba(71,165,116,0.15), rgba(18,25,33,0.9));
+        border: 2px solid var(--glow-color);
+        border-radius: var(--radius);
+        box-shadow: 0 0 32px rgba(71,165,116,0.2);
+        flex-wrap: wrap;
+      }
+
+      .profile-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--glow-color-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-title);
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+        box-shadow: 0 0 24px rgba(71,165,116,0.5);
+        border: 3px solid rgba(71,165,116,0.4);
+        text-transform: uppercase;
+        overflow: hidden;
+      }
+
+      .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+      }
+
+      .avatar-upload-wrap {
+        position: relative;
+        flex-shrink: 0;
+        cursor: pointer;
+        width: 96px;
+        height: 96px;
+      }
+
+      .avatar-upload-wrap:hover .avatar-overlay {
+        opacity: 1;
+      }
+
+      .avatar-overlay {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.22s ease;
+        pointer-events: none;
+        gap: 0.2rem;
+      }
+
+      .avatar-overlay svg {
+        width: 24px;
+        height: 24px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .avatar-overlay span {
+        font-size: 0.65rem;
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+
+      .profile-hero-info {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .profile-hero-info h1 {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        margin: 0 0 0.35rem;
+        text-shadow: 0 0 10px var(--glow-color);
+      }
+
+      .profile-hero-info .email {
+        color: var(--muted);
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .role-badges {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-top: 0.4rem;
+      }
+
+      .role-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .role-badge.student {
+        background: rgba(71,165,116,0.2);
+        color: var(--accent-2);
+        border: 1px solid rgba(71,165,116,0.4);
+      }
+
+      .role-badge.teacher {
+        background: rgba(124,77,255,0.2);
+        color: #b39dff;
+        border: 1px solid rgba(124,77,255,0.4);
+      }
+
+      .role-badge.admin {
+        background: rgba(255,152,0,0.2);
+        color: #ffcc80;
+        border: 1px solid rgba(255,152,0,0.4);
+      }
+
+      .join-date {
+        color: var(--muted);
+        font-size: 0.82rem;
+        margin-top: 0.4rem;
+      }
+
+      .profile-hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-end;
+      }
+
+      /* ── Profile Tabs ───────────────────────────────────── */
+      .profile-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        border-bottom: 2px solid var(--line);
+        padding-bottom: 0;
+        flex-wrap: wrap;
+      }
+
+      .profile-tab-btn {
+        background: none;
+        border: none;
+        color: var(--muted);
+        padding: 0.65rem 1.2rem;
+        border-radius: 8px 8px 0 0;
+        font-size: 0.92rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        bottom: -2px;
+        border: 2px solid transparent;
+        border-bottom: none;
+      }
+
+      .profile-tab-btn:hover {
+        color: var(--ink);
+        background: rgba(71,165,116,0.08);
+      }
+
+      .profile-tab-btn.active {
+        color: var(--accent-2);
+        border-color: var(--line);
+        border-bottom-color: var(--bg);
+        background: var(--bg);
+      }
+
+      .profile-tab-panel {
+        display: none;
+        padding-top: 2rem;
+      }
+
+      .profile-tab-panel.active {
+        display: block;
+      }
+
+      /* ── Info Grid ──────────────────────────────────────── */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .info-card {
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .info-card:hover {
+        border-color: rgba(71,165,116,0.4);
+        box-shadow: 0 0 16px rgba(71,165,116,0.12);
+      }
+
+      .info-card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .info-card-header .icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: rgba(71,165,116,0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+
+      .info-card-header h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-family: var(--font-title);
+        color: var(--ink);
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        gap: 1rem;
+      }
+
+      .info-row:last-child { border-bottom: none; }
+
+      .info-label {
+        font-size: 0.85rem;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+
+      .info-value {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--ink);
+        text-align: right;
+      }
+
+      .info-value.accent { color: var(--accent-2); }
+
+      /* ── Settings Form ──────────────────────────────────── */
+      .settings-form {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .form-field label {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .form-field input,
+      .form-field select {
+        background: var(--surface-2);
+        border: 2px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 0.65rem 1rem;
+        color: var(--ink);
+        font-size: 0.95rem;
+        transition: border-color 0.2s ease;
+        outline: none;
+        width: 100%;
+      }
+
+      .form-field input:focus,
+      .form-field select:focus {
+        border-color: var(--glow-color);
+        box-shadow: 0 0 0 3px rgba(71,165,116,0.15);
+      }
+
+      .form-save-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .save-msg {
+        font-size: 0.85rem;
+        color: var(--accent-2);
+        display: none;
+      }
+
+      /* ── Role-specific info block ───────────────────────── */
+      .role-info-block {
+        background: linear-gradient(135deg, rgba(71,165,116,0.1), rgba(18,25,33,0.95));
+        border: 2px solid rgba(71,165,116,0.3);
+        border-radius: var(--radius);
+        padding: 1.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .role-info-block h3 {
+        font-family: var(--font-title);
+        margin: 0 0 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .role-info-block p {
+        color: var(--muted);
+        margin: 0 0 1.2rem;
+        line-height: 1.7;
+        font-size: 0.95rem;
+      }
+
+      .quick-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .quick-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(71,165,116,0.12);
+        border: 1px solid rgba(71,165,116,0.3);
+        border-radius: 999px;
+        font-size: 0.85rem;
+        color: var(--accent-2);
+        transition: all 0.2s ease;
+      }
+
+      .quick-link:hover {
+        background: rgba(71,165,116,0.25);
+        box-shadow: 0 0 10px rgba(71,165,116,0.2);
+      }
+
+      /* ── Admin header (shown only for teacher/admin role) ── */
+      :root {
+        --adm-bg: #0d0f1a; --adm-surface: #1b232d; --adm-card: #1a1e35;
+        --adm-border: rgba(71,165,116,0.25); --adm-accent: #47a574;
+        --adm-accent2: #7dd2a6; --adm-accent3: #a8edd0;
+        --adm-ink: #e2e8f0; --adm-muted: #aaaaaa;
+        --adm-header-h: 64px; --adm-font: 'Space Grotesk', system-ui, sans-serif;
+      }
+      .adm-header {
+        height: var(--adm-header-h); background: var(--adm-surface);
+        border-bottom: 1px solid var(--adm-border);
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+        backdrop-filter: blur(10px); font-family: var(--adm-font);
+      }
+      .adm-logo { display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:var(--adm-ink); }
+      .adm-logo-badge { background:linear-gradient(135deg,var(--adm-accent),var(--adm-accent2)); color:#fff; font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:0.25rem 0.6rem; border-radius:6px; }
+      .adm-logo-name { font-size:1.1rem; font-weight:700; color:var(--adm-ink); }
+      .adm-header-nav { display:flex; align-items:center; gap:0.5rem; }
+      .adm-nav-link { padding:0.45rem 1rem; border-radius:8px; color:var(--adm-muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:background 0.18s,color 0.18s; }
+      .adm-nav-link:hover, .adm-nav-link.active { background:rgba(71,165,116,0.15); color:var(--adm-accent3); }
+      .adm-header-right { display:flex; align-items:center; gap:1rem; }
+      .adm-user-pill { display:flex; align-items:center; gap:0.6rem; background:rgba(71,165,116,0.12); border:1px solid var(--adm-border); border-radius:999px; padding:0.35rem 1rem 0.35rem 0.5rem; font-size:0.85rem; color:var(--adm-accent3); }
+      .adm-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--adm-accent),var(--adm-accent2)); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:#fff; flex-shrink:0; }
+      .adm-btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1.1rem; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; border:none; transition:opacity 0.18s,transform 0.12s; text-decoration:none; font-family:var(--adm-font); }
+      .adm-btn:hover { opacity:0.85; transform:translateY(-1px); }
+      .adm-btn-ghost { background:transparent; border:1px solid var(--adm-border); color:var(--adm-muted); }
+      .adm-btn-ghost:hover { color:var(--adm-ink); border-color:var(--adm-accent); }
+
+      /* ── Admin header responsive ─────────────────────────── */
+      .adm-menu-btn {
+        display: none;
+        width: 36px; height: 36px;
+        background: rgba(71,165,116,0.1);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        color: var(--adm-ink);
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .adm-menu-btn:hover { background: rgba(71,165,116,0.22); border-color: var(--adm-accent); }
+      .adm-mobile-nav {
+        display: none;
+        position: fixed;
+        top: var(--adm-header-h, 64px);
+        left: 0; right: 0;
+        background: var(--adm-surface);
+        border-bottom: 2px solid var(--adm-border);
+        flex-direction: column;
+        padding: 0.6rem 1rem 1rem;
+        gap: 0.3rem;
+        z-index: 99;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      }
+      .adm-mobile-nav.open { display: flex; }
+      .adm-mobile-nav .adm-nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.92rem;
+        border-radius: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+      .adm-mobile-nav-divider { height:1px; background:var(--adm-border); margin:0.4rem 0; }
+      .adm-mobile-logout {
+        background: transparent;
+        border: 1px solid var(--adm-border);
+        border-radius: 10px;
+        color: var(--adm-muted);
+        padding: 0.7rem 1rem;
+        font-size: 0.92rem;
+        font-family: var(--adm-font, 'Space Grotesk',system-ui,sans-serif);
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.18s;
+        width: 100%;
+      }
+      .adm-mobile-logout:hover { color:var(--adm-ink); border-color:var(--adm-accent); background:rgba(71,165,116,0.1); }
+      @media (max-width: 860px) {
+        .adm-header { padding: 0 1rem !important; }
+        .adm-header-nav { display: none !important; }
+        .adm-menu-btn { display: flex; }
+      }
+      @media (max-width: 600px) {
+        .adm-logo-name { font-size: 0.9rem; }
+        .adm-user-pill { padding: 0.28rem 0.6rem 0.28rem 0.4rem; }
+        .adm-user-pill > span[id] { display: none; }
+        .adm-user-pill > span[style] { display: none !important; }
+        .adm-btn-ghost { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+      }
+      @media (max-width: 440px) {
+        .adm-user-pill { display: none; }
+        .adm-header { gap: 0.5rem !important; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { auth, db } from './assets/js/db.js';
+      import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      import { getDoc, doc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname);
+          return;
+        }
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          const role = snap.exists() ? (snap.data().role || 'student') : 'student';
+          if (role === 'teacher' || role === 'admin') {
+            // Swap to admin header
+            document.querySelector('.site-header').style.display = 'none';
+            const adminHdr = document.getElementById('adminHeader');
+            if (adminHdr) adminHdr.style.display = 'flex';
+            // Populate admin user pill
+            const name = snap.data()?.name || snap.data()?.displayName || user.email?.split('@')[0] || 'Admin';
+            const initials = name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+            const avatarEl = document.getElementById('admProfileAvatar');
+            const nameEl   = document.getElementById('admProfileName');
+            const roleEl   = document.getElementById('admProfileRole');
+            if (avatarEl) avatarEl.textContent = initials;
+            if (nameEl)   nameEl.textContent   = name;
+            if (roleEl)   roleEl.textContent   = role === 'admin' ? 'Admin' : 'Teacher';
+          }
+        } catch(e) { /* stay on page */ }
+      });
+    </script>
+
     <header class="site-header">
       <a class="logo" href="index.html">AI Learning Guide</a>
       <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
+        <a href="teacher-dashboard.html" class="teacher-only" style="display: none;">Teacher Dashboard</a>
         <a href="quiz.html">Quiz</a>
+        <a href="chat.html">Chat</a>
         <a href="profile.html" class="active">Profile</a>
         <a href="about.html">About</a>
-        <a href="login.html" class="button ghost">Login</a>
+        <a href="login.html" class="button ghost login-only">Login</a>
+        <button id="logoutBtn" class="button ghost auth-only" style="display: none;">Logout</button>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        ☰
-      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
     </header>
 
+    <!-- Admin Header (shown only for teacher/admin role) -->
+    <header class="adm-header" id="adminHeader" style="display:none;">
+      <a class="adm-logo" href="teacher-dashboard.html">
+        <span class="adm-logo-badge">Admin</span>
+        <span class="adm-logo-name">AI Learning Guide</span>
+      </a>
+      <nav class="adm-header-nav">
+        <a class="adm-nav-link" href="teacher-dashboard.html">Dashboard</a>
+        <a class="adm-nav-link" href="chat.html">Chat</a>
+        <a class="adm-nav-link active" href="profile.html">Profile</a>
+        <a class="adm-nav-link" href="about.html">About</a>
+      </nav>
+      <div class="adm-header-right">
+        <div class="adm-user-pill">
+          <div class="adm-avatar" id="admProfileAvatar">?</div>
+          <span id="admProfileName">Loading&#8230;</span>
+          <span style="font-size:0.7rem; color:var(--adm-muted); margin-left:0.25rem;" id="admProfileRole">&#8212;</span>
+        </div>
+        <button class="adm-btn adm-btn-ghost" id="admProfileLogout">Logout</button>
+        <button class="adm-menu-btn" id="admMenuBtn" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </header>
+    <!-- Admin mobile nav -->
+    <nav class="adm-mobile-nav" id="admMobileNav" aria-label="Admin mobile navigation">
+      <a class="adm-nav-link" href="teacher-dashboard.html">Dashboard</a>
+      <a class="adm-nav-link" href="chat.html">Chat</a>
+      <a class="adm-nav-link active" href="profile.html">Profile</a>
+      <a class="adm-nav-link" href="about.html">About</a>
+      <div class="adm-mobile-nav-divider"></div>
+      <button class="adm-mobile-logout" id="admMobileLogout">Logout</button>
+    </nav>
+    <script type="module">
+      import { auth } from './assets/js/db.js';
+      import { signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      document.getElementById('admProfileLogout')?.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+      });
+      document.getElementById('admMobileLogout')?.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+      });
+    </script>
+    <script>
+      (function() {
+        var btn = document.getElementById('admMenuBtn');
+        var nav = document.getElementById('admMobileNav');
+        if (btn && nav) {
+          btn.addEventListener('click', function(e) { e.stopPropagation(); nav.classList.toggle('open'); });
+          document.addEventListener('click', function(e) {
+            if (!e.target.closest('#adminHeader') && !e.target.closest('#admMobileNav')) nav.classList.remove('open');
+          });
+        }
+      })();
+    </script>
+
     <main>
-      <section class="section">
-        <div class="section-header">
-          <h1>👤 Your Profile</h1>
-          <p>View your learning stats and account settings.</p>
-        </div>
-        <div class="profile" id="profileCard">
-          <div>
-            <h2 id="profileName">Learner</h2>
-            <p id="profileEmail">Loading user...</p>
+      <!-- ───────── Profile Hero ───────── -->
+      <section class="section" style="margin-top: 1.5rem;">
+        <div class="profile-hero">
+          <div class="avatar-upload-wrap" id="avatarUploadWrap" title="Click to upload a profile photo">
+            <div class="profile-avatar" id="profileAvatar">?</div>
+            <div class="avatar-overlay">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Change</span>
+            </div>
+            <input type="file" id="avatarInput" accept="image/*" hidden />
           </div>
-          <button class="button ghost" id="logoutButton">Log out</button>
-        </div>
-      </section>
-
-      <section class="section split">
-        <div>
-          <h2>📊 Progress Summary</h2>
-          <p>Track your learning level, quiz scores, and streaks.</p>
-        </div>
-        <div class="stats" id="profileStats">
-          <div class="stat">
-            <span class="stat-title">Learning Level</span>
-            <span class="stat-value" id="learningLevel">Beginner</span>
+          <div class="profile-hero-info">
+            <h1 id="profileName">Loading…</h1>
+            <p class="email" id="profileEmail">—</p>
+            <div class="role-badges">
+              <span class="role-badge student" id="roleBadge">Student</span>
+            </div>
+            <p class="join-date" id="joinDate"></p>
           </div>
-          <div class="stat">
-            <span class="stat-title">Total Topics Completed</span>
-            <span class="stat-value" id="topicsCompleted">--</span>
-          </div>
-          <div class="stat">
-            <span class="stat-title">Average Quiz Score</span>
-            <span class="stat-value" id="avgQuizScore">--</span>
-          </div>
-          <div class="stat">
-            <span class="stat-title">Longest Learning Streak</span>
-            <span class="stat-value" id="longestStreak">--</span>
+          <div class="profile-hero-actions">
+            <button class="button ghost" id="logoutButton">Log out</button>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="section-header">
-          <h2>🎯 Areas to Improve</h2>
-          <p>Focus on these topics to strengthen your understanding.</p>
-        </div>
-        <div class="panel-card">
-          <ul class="topic-list" id="areasToImprove">
-            <li>Model Evaluation Metrics</li>
-            <li>Backpropagation</li>
-            <li>Transformer Architecture</li>
-          </ul>
-        </div>
-      </section>
-    </main>
+      <!-- ───────── Tab Navigation ───────── -->
+      <div class="profile-tabs">
+        <button class="profile-tab-btn active" data-tab="overview">Overview</button>
+        <button class="profile-tab-btn" data-tab="account">Account</button>
+        <button class="profile-tab-btn" data-tab="preferences">Preferences</button>
+      </div>
 
-    <div class="chat-widget" id="chatWidget">
-      <button class="chat-toggle" id="chatToggle">Chat</button>
-      <div class="chat-panel" aria-live="polite">
-        <header>
-          <div>
-            <strong>Gemini Tutor</strong>
-            <span>Ask quick AI questions</span>
+      <!-- ───────── Tab: Overview ───────── -->
+      <div class="profile-tab-panel active" id="tab-overview">
+        <div class="info-grid">
+          <!-- Account Details -->
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="icon">👤</div>
+              <h3>Account Details</h3>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Display Name</span>
+              <span class="info-value" id="detailName">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email</span>
+              <span class="info-value" id="detailEmail">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Role</span>
+              <span class="info-value accent" id="detailRole">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Member Since</span>
+              <span class="info-value" id="detailJoin">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Last Active</span>
+              <span class="info-value" id="detailLastActive">—</span>
+            </div>
           </div>
-          <button id="chatClose">✕</button>
-        </header>
-        <div class="chat-messages" id="chatMessages"></div>
-        <form id="chatForm">
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask about today&apos;s topic..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </form>
-        <div class="chat-settings">
-          <label for="chatKey">Gemini API Key</label>
-          <input type="password" id="chatKey" placeholder="Paste key" />
+
+          <!-- Learning Info -->
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="icon">📚</div>
+              <h3>Learning Profile</h3>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Level</span>
+              <span class="info-value accent" id="detailLevel">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Grade / Year</span>
+              <span class="info-value" id="detailGrade">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Subjects</span>
+              <span class="info-value" id="detailSubjects">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Learning Style</span>
+              <span class="info-value" id="detailStyle">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role-specific info block (dynamically rendered) -->
+        <div class="role-info-block" id="roleInfoBlock"></div>
+      </div>
+
+      <!-- ───────── Tab: Account ───────── -->
+      <div class="profile-tab-panel" id="tab-account">
+        <div class="info-grid">
+          <div class="info-card" style="grid-column: 1 / -1; max-width: 500px;">
+            <div class="info-card-header">
+              <div class="icon">✏️</div>
+              <h3>Edit Profile</h3>
+            </div>
+            <div class="settings-form">
+              <div class="form-field">
+                <label for="editName">Display Name</label>
+                <input type="text" id="editName" placeholder="Your name" />
+              </div>
+              <div class="form-field">
+                <label for="editGrade">Grade / Year</label>
+                <select id="editGrade">
+                  <option value="High School">High School</option>
+                  <option value="Undergraduate">Undergraduate</option>
+                  <option value="Graduate">Graduate</option>
+                  <option value="Professional">Professional</option>
+                  <option value="Self-taught">Self-taught</option>
+                </select>
+              </div>
+              <div class="form-save-row">
+                <button class="button" id="saveProfileBtn">Save Changes</button>
+                <span class="save-msg" id="saveMsg">✓  Saved successfully</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top: 1.5rem;">
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="icon">🔐</div>
+              <h3>Security</h3>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Sign-in Method</span>
+              <span class="info-value" id="signInMethod">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email Verified</span>
+              <span class="info-value" id="emailVerified">—</span>
+            </div>
+            <div style="margin-top: 1rem;">
+              <button class="button ghost" id="resetPasswordBtn" style="font-size:0.85rem; padding: 0.45rem 1rem;">Send Password Reset Email</button>
+              <span class="save-msg" id="resetMsg" style="margin-top:0.5rem; display:none;">✓  Reset email sent</span>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="icon">⚠️</div>
+              <h3>Danger Zone</h3>
+            </div>
+            <p style="color: var(--muted); font-size:0.88rem; margin:0 0 1rem;">
+              Logging out will end your current session. Your progress is saved to your account.
+            </p>
+            <button class="button ghost" id="logoutButton2" style="border-color: rgba(220,50,50,0.4); color: #ff8080; font-size:0.85rem;">Log Out</button>
+          </div>
         </div>
       </div>
-    </div>
+
+      <!-- ───────── Tab: Preferences ───────── -->
+      <div class="profile-tab-panel" id="tab-preferences">
+        <div class="info-grid">
+          <div class="info-card" style="max-width: 500px; grid-column: 1 / -1;">
+            <div class="info-card-header">
+              <div class="icon">⚙️</div>
+              <h3>Learning Preferences</h3>
+            </div>
+            <div class="settings-form">
+              <div class="form-field">
+                <label for="prefStyle">Preferred Learning Style</label>
+                <select id="prefStyle">
+                  <option value="Socratic">Socratic (Question-Answer)</option>
+                  <option value="Explanatory">Explanatory (Detailed)</option>
+                  <option value="Visual">Visual (Examples and Diagrams)</option>
+                  <option value="Concise">Concise (Short and Sharp)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="prefSubjects">Primary Subject</label>
+                <select id="prefSubjects">
+                  <option value="AI Basics">AI Basics</option>
+                  <option value="Machine Learning">Machine Learning</option>
+                  <option value="Deep Learning">Deep Learning</option>
+                  <option value="NLP">Natural Language Processing</option>
+                  <option value="Computer Vision">Computer Vision</option>
+                  <option value="Reinforcement Learning">Reinforcement Learning</option>
+                </select>
+              </div>
+              <div class="form-save-row">
+                <button class="button" id="savePrefBtn">Save Preferences</button>
+                <span class="save-msg" id="prefSaveMsg">✓  Preferences saved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <footer class="site-footer">
       <p>Built for focused AI learning.</p>
-      <p>Powered by Firebase & Gemini AI.</p>
+      <p>Powered by Firebase &amp; Gemini AI.</p>
       <p>Deployable on Vercel.</p>
       <p><a href="privacy.html" style="color: var(--accent-2);">Privacy Policy</a></p>
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>
     <script type="module" src="assets/js/auth.js"></script>
-    <script type="module" src="assets/js/db.js"></script>
-    <script type="module" src="assets/js/chat.js"></script>
+    <script type="module" src="assets/js/profile-page.js"></script>
   </body>
 </html>

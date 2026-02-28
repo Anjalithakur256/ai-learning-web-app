@@ -1,2 +1,33 @@
+# ── Environment & secrets ───────────────────────────────────────────
+.env
+.env.*
+.env.local
+.env.*.local
+**/functions/.env
+**/functions/.env.*
+
+# ── Firebase ─────────────────────────────────────────────────────────
+.firebaserc
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+.firebase/
+
+# ── Node ─────────────────────────────────────────────────────────────
+node_modules/
+**/node_modules/
+package-lock.json
+**/package-lock.json
+npm-debug.log*
+
+# ── Vercel ───────────────────────────────────────────────────────────
 .vercel
-.env*.local
+
+# ── OS / editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+

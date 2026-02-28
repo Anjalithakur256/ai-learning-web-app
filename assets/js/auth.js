@@ -9,7 +9,42 @@ import {
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { auth, createUserProfile } from "./db.js";
+import { getDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import { auth, db, createUserProfile } from "./db.js";
+
+// Helper function to get user role from Firestore
+async function getUserRole(user) {
+  if (!user) return 'student';
+  try {
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      return userDoc.data().role || 'student';
+    }
+  } catch (error) {
+    console.warn('Error fetching user role:', error.message);
+  }
+  return 'student';
+}
+
+// Helper function to redirect based on role
+function redirectByRole(role) {
+  // Check if there's a redirect parameter in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirectTo = urlParams.get('redirect');
+  
+  if (redirectTo) {
+    // Redirect to the original page the user was trying to access
+    window.location.href = redirectTo;
+  } else {
+    // Use default role-based redirect
+    if (role === 'teacher' || role === 'admin') {
+      window.location.href = "teacher-dashboard.html";
+    } else {
+      window.location.href = "dashboard.html";
+    }
+  }
+}
 
 // Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
@@ -135,11 +170,13 @@ if (loginForm) {
     
     try {
       const credential = await signInWithEmailAndPassword(auth, email, password);
+      // Get user role and redirect accordingly
+      const userRole = await getUserRole(credential.user);
       // Non-blocking: don't let Firestore errors prevent login
-      createUserProfile(credential.user).catch(e => console.warn('Profile sync skipped:', e.message));
+      createUserProfile(credential.user, userRole).catch(e => console.warn('Profile sync skipped:', e.message));
       showMessage('Login successful! Redirecting...', 'success');
       setTimeout(() => {
-        window.location.href = "dashboard.html";
+        redirectByRole(userRole);
       }, 500);
     } catch (error) {
       setLoading(submitBtn, false);
@@ -195,11 +232,15 @@ if (signupForm) {
         password
       );
       await updateProfile(credential.user, { displayName: name });
+      
+      // Get selected role from signup form
+      const selectedRole = signupForm.querySelector('input[name="role"]:checked')?.value || 'student';
+      
       // Non-blocking: don't let Firestore errors prevent signup
-      createUserProfile(credential.user).catch(e => console.warn('Profile sync skipped:', e.message));
+      createUserProfile(credential.user, selectedRole).catch(e => console.warn('Profile sync skipped:', e.message));
       showMessage('Account created successfully! Redirecting...', 'success');
       setTimeout(() => {
-        window.location.href = "dashboard.html";
+        redirectByRole(selectedRole);
       }, 500);
     } catch (error) {
       setLoading(submitBtn, false);
@@ -249,11 +290,13 @@ if (googleSignInButton) {
     setLoading(googleSignInButton, true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      // Get user role (will create profile if doesn't exist)
+      const userRole = await getUserRole(result.user);
       // Non-blocking: don't let Firestore errors prevent login
-      createUserProfile(result.user).catch(e => console.warn('Profile sync skipped:', e.message));
+      createUserProfile(result.user, userRole).catch(e => console.warn('Profile sync skipped:', e.message));
       showMessage('Signed in with Google! Redirecting...', 'success');
       setTimeout(() => {
-        window.location.href = "dashboard.html";
+        redirectByRole(userRole);
       }, 500);
     } catch (error) {
       setLoading(googleSignInButton, false);
@@ -276,7 +319,7 @@ if (logoutButton) {
 }
 
 // Check auth state and handle redirects
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   const isLoginPage = window.location.pathname.includes('login.html');
   
   // On login page, show message if already logged in (don't auto-redirect)
@@ -286,6 +329,10 @@ onAuthStateChanged(auth, (user) => {
     const authTabs = document.querySelector('.auth-tabs');
     const googleBtn = document.getElementById('googleSignIn');
     const divider = document.querySelector('.divider');
+    
+    // Get user role for proper dashboard link
+    const userRole = await getUserRole(user);
+    const dashboardUrl = (userRole === 'teacher' || userRole === 'admin') ? 'teacher-dashboard.html' : 'dashboard.html';
     
     // Hide forms and show logged-in message
     if (loginFormEl) loginFormEl.classList.add('hidden');
@@ -300,7 +347,7 @@ onAuthStateChanged(auth, (user) => {
         <div style="text-align: center; padding: 1rem 0;">
           <p style="margin-bottom: 1rem;">You're already logged in as <strong>${user.displayName || user.email}</strong></p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="dashboard.html" class="login-btn" style="display: inline-block; padding: 0.75rem 1.5rem; text-decoration: none;">Go to Dashboard</a>
+            <a href="${dashboardUrl}" class="login-btn" style="display: inline-block; padding: 0.75rem 1.5rem; text-decoration: none;">Go to Dashboard</a>
             <button id="logoutFromLogin" class="login-btn" style="background: transparent; border: 2px solid var(--glow-color);">Logout</button>
           </div>
         </div>
@@ -325,5 +372,27 @@ onAuthStateChanged(auth, (user) => {
       profileName.textContent = "Guest";
       profileEmail.textContent = "Log in to see progress.";
     }
+  }
+  
+  // Show/hide Teacher Dashboard link based on user role
+  const teacherLinks = document.querySelectorAll('.teacher-only');
+  if (user) {
+    const userRole = await getUserRole(user);
+    if (userRole === 'teacher' || userRole === 'admin') {
+      // Show teacher dashboard links for teachers/admins
+      teacherLinks.forEach(link => {
+        link.style.display = '';
+      });
+    } else {
+      // Hide teacher dashboard links for students
+      teacherLinks.forEach(link => {
+        link.style.display = 'none';
+      });
+    }
+  } else {
+    // Hide teacher dashboard links for non-authenticated users
+    teacherLinks.forEach(link => {
+      link.style.display = 'none';
+    });
   }
 });

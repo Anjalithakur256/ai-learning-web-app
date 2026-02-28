@@ -4,14 +4,25 @@
 		{
 			"label": "Run local web server",
 			"type": "shell",
-			"command": "C:/Users/yashr/ai-learning-guide-web-app/.venv/Scripts/python.exe",
+			"command": "node",
 			"args": [
-				"-m",
-				"http.server",
-				"8000"
+				"server.js"
 			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
 			"isBackground": true,
-			"problemMatcher": [],
+			"problemMatcher": {
+				"owner": "node-server",
+				"pattern": {
+					"regexp": "NEVER_MATCH"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Local Dev Server",
+					"endsPattern": "localhost:"
+				}
+			},
 			"group": "build"
 		}
 	]

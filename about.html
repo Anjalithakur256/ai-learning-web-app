@@ -1,163 +1,375 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, and AI-powered assistance using Gemini API." />
+    <meta name="description" content="AI Learning Guide is a structured web platform to learn Artificial Intelligence step-by-step with quizzes, progress tracking, RAG-powered AI assistance via OpenRouter (GPT gpt-oss-20b), and a Socratic tutor." />
     <title>AI Learning Guide | About</title>
     <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --adm-surface: #1b232d; --adm-border: rgba(71,165,116,0.25);
+        --adm-accent: #47a574; --adm-accent2: #7dd2a6; --adm-accent3: #a8edd0;
+        --adm-ink: #e2e8f0; --adm-muted: #aaaaaa;
+        --adm-header-h: 64px; --adm-font: 'Space Grotesk', system-ui, sans-serif;
+      }
+      .adm-header { height:var(--adm-header-h); background:var(--adm-surface); border-bottom:1px solid var(--adm-border); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; position:sticky; top:0; z-index:100; backdrop-filter:blur(10px); font-family:var(--adm-font); }
+      .adm-logo { display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:var(--adm-ink); }
+      .adm-logo-badge { background:linear-gradient(135deg,var(--adm-accent),var(--adm-accent2)); color:#fff; font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:0.25rem 0.6rem; border-radius:6px; }
+      .adm-logo-name { font-size:1.1rem; font-weight:700; color:var(--adm-ink); }
+      .adm-header-nav { display:flex; align-items:center; gap:0.5rem; }
+      .adm-nav-link { padding:0.45rem 1rem; border-radius:8px; color:var(--adm-muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:background 0.18s,color 0.18s; }
+      .adm-nav-link:hover, .adm-nav-link.active { background:rgba(71,165,116,0.15); color:var(--adm-accent3); }
+      .adm-header-right { display:flex; align-items:center; gap:1rem; }
+      .adm-user-pill { display:flex; align-items:center; gap:0.6rem; background:rgba(71,165,116,0.12); border:1px solid var(--adm-border); border-radius:999px; padding:0.35rem 1rem 0.35rem 0.5rem; font-size:0.85rem; color:var(--adm-accent3); }
+      .adm-avatar { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--adm-accent),var(--adm-accent2)); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; color:#fff; flex-shrink:0; }
+      .adm-btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 1.1rem; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; border:none; transition:opacity 0.18s; text-decoration:none; font-family:var(--adm-font); }
+      .adm-btn:hover { opacity:0.85; }
+      .adm-btn-ghost { background:transparent; border:1px solid var(--adm-border); color:var(--adm-muted); }
+      .adm-btn-ghost:hover { color:var(--adm-ink); border-color:var(--adm-accent); }
+
+      /* ── About-page layout fixes ──────────────────────────────── */
+      /* Make stat grid use wider columns so long values fit */
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      }
+      /* Allow long stat values to wrap gracefully */
+      .stat-value {
+        font-size: 1rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.4;
+        hyphens: auto;
+      }
+      /* Card headings: allow wrapping, use emoji-rich font stack */
+      .card h3 {
+        flex-wrap: wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        font-family: 'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',var(--font-title);
+      }
+      /* Emoji icon in card headings */
+      .card-icon {
+        font-size: 1.4rem;
+        line-height: 1;
+        flex-shrink: 0;
+        font-family: 'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif;
+      }
+      /* Prevent panel-card from clipping content */
+      .panel-card {
+        overflow: visible;
+      }
+      /* About page admin header tab – active state colour */
+      .adm-header-nav .adm-nav-link.active {
+        background: rgba(71,165,116,0.22);
+        color: var(--adm-accent2);
+        font-weight: 600;
+      }
+
+      /* ── Admin header responsive ─────────────────────────── */
+      .adm-menu-btn {
+        display: none;
+        width: 36px; height: 36px;
+        background: rgba(71,165,116,0.1);
+        border: 1px solid var(--adm-border);
+        border-radius: 8px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        color: var(--adm-ink);
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .adm-menu-btn:hover { background: rgba(71,165,116,0.22); border-color: var(--adm-accent); }
+      .adm-mobile-nav {
+        display: none;
+        position: fixed;
+        top: var(--adm-header-h, 64px);
+        left: 0; right: 0;
+        background: var(--adm-surface);
+        border-bottom: 2px solid var(--adm-border);
+        flex-direction: column;
+        padding: 0.6rem 1rem 1rem;
+        gap: 0.3rem;
+        z-index: 99;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      }
+      .adm-mobile-nav.open { display: flex; }
+      .adm-mobile-nav .adm-nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.92rem;
+        border-radius: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+      .adm-mobile-nav-divider { height:1px; background:var(--adm-border); margin:0.4rem 0; }
+      .adm-mobile-logout {
+        background: transparent;
+        border: 1px solid var(--adm-border);
+        border-radius: 10px;
+        color: var(--adm-muted);
+        padding: 0.7rem 1rem;
+        font-size: 0.92rem;
+        font-family: var(--adm-font, 'Space Grotesk',system-ui,sans-serif);
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.18s;
+        width: 100%;
+      }
+      .adm-mobile-logout:hover { color:var(--adm-ink); border-color:var(--adm-accent); background:rgba(71,165,116,0.1); }
+      @media (max-width: 860px) {
+        .adm-header { padding: 0 1rem; }
+        .adm-header-nav { display: none !important; }
+        .adm-menu-btn { display: flex; }
+      }
+      @media (max-width: 600px) {
+        .adm-logo-name { font-size: 0.9rem; }
+        .adm-user-pill { padding: 0.28rem 0.6rem 0.28rem 0.4rem; }
+        .adm-user-pill > span[id] { display: none; }
+        .adm-user-pill > span[style] { display: none !important; }
+        .adm-btn-ghost { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+      }
+      @media (max-width: 440px) {
+        .adm-user-pill { display: none; }
+        .adm-header { gap: 0.5rem; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Authentication Guard -->
+    <script type="module">
+      import { auth, db } from './assets/js/db.js';
+      import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      import { getDoc, doc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return;
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          const role = snap.exists() ? (snap.data().role || 'student') : 'student';
+          if (role === 'teacher' || role === 'admin') {
+            document.querySelector('.site-header').style.display = 'none';
+            const adminHdr = document.getElementById('adminHeader');
+            if (adminHdr) adminHdr.style.display = 'flex';
+            const name = snap.data()?.name || snap.data()?.displayName || user.email?.split('@')[0] || 'Admin';
+            const initials = name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+            const avatarEl = document.getElementById('admAboutAvatar');
+            const nameEl   = document.getElementById('admAboutName');
+            const roleEl   = document.getElementById('admAboutRole');
+            if (avatarEl) avatarEl.textContent = initials;
+            if (nameEl)   nameEl.textContent   = name;
+            if (roleEl)   roleEl.textContent   = role === 'admin' ? 'Admin' : 'Teacher';
+          }
+        } catch(e) { /* stay on page */ }
+      });
+    </script>
     <header class="site-header">
       <a class="logo" href="index.html">AI Learning Guide</a>
       <nav class="site-nav" id="siteNav">
         <a href="index.html">Home</a>
         <a href="dashboard.html">Dashboard</a>
+        <a href="teacher-dashboard.html" class="teacher-only" style="display: none;">Teacher Dashboard</a>
         <a href="quiz.html">Quiz</a>
+        <a href="chat.html">Chat</a>
         <a href="profile.html">Profile</a>
         <a href="about.html" class="active">About</a>
-        <a href="login.html" class="button ghost">Login</a>
+        <a href="login.html" class="button ghost login-only">Login</a>
+        <button id="logoutBtn" class="button ghost auth-only" style="display: none;">Logout</button>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         ☰
       </button>
     </header>
 
+    <!-- Admin Header (shown only for teacher/admin role) -->
+    <header class="adm-header" id="adminHeader" style="display:none;">
+      <a class="adm-logo" href="teacher-dashboard.html">
+        <span class="adm-logo-badge">Admin</span>
+        <span class="adm-logo-name">AI Learning Guide</span>
+      </a>
+      <nav class="adm-header-nav">
+        <a class="adm-nav-link" href="teacher-dashboard.html">Dashboard</a>
+        <a class="adm-nav-link" href="chat.html">Chat</a>
+        <a class="adm-nav-link" href="profile.html">Profile</a>
+        <a class="adm-nav-link active" href="about.html">About</a>
+      </nav>
+      <div class="adm-header-right">
+        <div class="adm-user-pill">
+          <div class="adm-avatar" id="admAboutAvatar">?</div>
+          <span id="admAboutName">Loading&#8230;</span>
+          <span style="font-size:0.7rem; color:var(--adm-muted); margin-left:0.25rem;" id="admAboutRole">&#8212;</span>
+        </div>
+        <button class="adm-btn adm-btn-ghost" id="admAboutLogout">Logout</button>
+        <button class="adm-menu-btn" id="admMenuBtn" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </header>
+    <!-- Admin mobile nav -->
+    <nav class="adm-mobile-nav" id="admMobileNav" aria-label="Admin mobile navigation">
+      <a class="adm-nav-link" href="teacher-dashboard.html">Dashboard</a>
+      <a class="adm-nav-link" href="chat.html">Chat</a>
+      <a class="adm-nav-link" href="profile.html">Profile</a>
+      <a class="adm-nav-link active" href="about.html">About</a>
+      <div class="adm-mobile-nav-divider"></div>
+      <button class="adm-mobile-logout" id="admMobileLogout">Logout</button>
+    </nav>
+    <script type="module">
+      import { auth } from './assets/js/db.js';
+      import { signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      document.getElementById('admAboutLogout')?.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+      });
+      document.getElementById('admMobileLogout')?.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'index.html';
+      });
+    </script>
+    <script>
+      (function() {
+        var btn = document.getElementById('admMenuBtn');
+        var nav = document.getElementById('admMobileNav');
+        if (btn && nav) {
+          btn.addEventListener('click', function(e) { e.stopPropagation(); nav.classList.toggle('open'); });
+          document.addEventListener('click', function(e) {
+            if (!e.target.closest('#adminHeader') && !e.target.closest('#admMobileNav')) nav.classList.remove('open');
+          });
+        }
+      })();
+    </script>
+
     <main>
       <section class="section">
         <div class="section-header">
-          <h1>📚 About AI Learning Guide</h1>
+          <h1>&#x1F4DA; About AI Learning Guide</h1>
         </div>
-        
+
         <div class="panel-card" style="margin-bottom: 2rem;">
           <p style="line-height: 1.8; color: var(--muted);">
-            <strong style="color: var(--ink);">AI Learning Guide</strong> is a structured and interactive web platform designed to help learners master Artificial Intelligence step-by-step. The platform provides curated roadmaps, interactive quizzes, progress tracking, and an AI-powered assistant to ensure concept clarity and continuous improvement.
+            <strong style="color: var(--ink);">AI Learning Guide</strong> is a structured and interactive web platform designed to help learners master Artificial Intelligence step-by-step. The platform provides curated roadmaps, interactive quizzes, real-time progress tracking, an AI-powered chat assistant, and a Socratic tutor that guides students through problem-solving rather than just giving answers.
           </p>
           <p style="line-height: 1.8; color: var(--muted); margin-top: 1rem;">
-            Unlike scattered learning resources, AI Learning Guide organizes AI topics into progressive tracks covering <strong style="color: var(--accent-2);">AI Basics</strong>, <strong style="color: var(--accent-2);">Machine Learning</strong>, <strong style="color: var(--accent-2);">Deep Learning</strong>, <strong style="color: var(--accent-2);">NLP</strong>, and <strong style="color: var(--accent-2);">Generative AI</strong>. Each track is carefully structured to move from foundational understanding to real-world implementation.
+            AI topics are organized into progressive tracks covering <strong style="color: var(--accent-2);">AI Basics</strong>, <strong style="color: var(--accent-2);">Machine Learning</strong>, <strong style="color: var(--accent-2);">Deep Learning</strong>, <strong style="color: var(--accent-2);">NLP</strong>, and <strong style="color: var(--accent-2);">Generative AI</strong> &#8212; each structured to move from foundational understanding to real-world implementation.
           </p>
           <p style="line-height: 1.8; color: var(--muted); margin-top: 1rem;">
-            The platform integrates <strong style="color: var(--ink);">Firebase</strong> for authentication and data management, and <strong style="color: var(--ink);">Gemini AI</strong> for intelligent assistance and NLP-based guidance. It is optimized for performance and deployed using <strong style="color: var(--ink);">Vercel's</strong> lightweight serverless architecture.
+            The platform uses <strong style="color: var(--ink);">Firebase</strong> for authentication and real-time database, <strong style="color: var(--ink);">OpenRouter</strong> as the AI gateway routing to <strong style="color: var(--ink);">GPT (openai/gpt-oss-20b)</strong> for intelligent responses and <strong style="color: var(--ink);">text-embedding-3-small</strong> for RAG-powered context retrieval. It is deployed on <strong style="color: var(--ink);">Vercel</strong> with serverless API proxies.
           </p>
         </div>
       </section>
 
       <section class="section">
         <div class="section-header">
-          <h2>⚡ Core Features</h2>
+          <h2>&#x26A1; Core Features</h2>
         </div>
         <div class="grid cards">
           <article class="card">
-            <h3>🛣 Structured AI Roadmaps</h3>
-            <p>Follow progressive learning paths from fundamentals to advanced concepts.</p>
+            <h3><span class="card-icon">&#x1F5FA;&#xFE0F;</span> Structured AI Roadmaps</h3>
+            <p>Follow progressive learning paths from AI fundamentals to advanced generative AI concepts.</p>
           </article>
           <article class="card">
-            <h3>🧪 Interactive Quizzes</h3>
-            <p>Test your understanding with concept-based questions and instant feedback.</p>
+            <h3><span class="card-icon">&#x2753;</span> Interactive Quizzes</h3>
+            <p>Concept-based quizzes with instant feedback, score tracking, and performance history.</p>
           </article>
           <article class="card">
-            <h3>📊 Real-Time Progress Tracking</h3>
-            <p>Monitor your quiz scores, topic completion, and learning streaks.</p>
+            <h3><span class="card-icon">&#x1F4CA;</span> Real-Time Progress Tracking</h3>
+            <p>Monitor quiz scores, topic completion, and class-wide performance via live dashboards powered by Chart.js.</p>
           </article>
           <article class="card">
-            <h3>🤖 AI-Powered Assistant</h3>
-            <p>Get intelligent guidance and explanations powered by Gemini AI.</p>
+            <h3><span class="card-icon">&#x1F916;</span> AI Chat Assistant</h3>
+            <p>Powered by <strong>GPT (openai/gpt-oss-20b)</strong> via OpenRouter with RAG retrieval for context-aware, accurate answers.</p>
           </article>
           <article class="card">
-            <h3>💡 Personalized Recommendations</h3>
-            <p>Receive topic suggestions based on your learning progress and performance.</p>
+            <h3><span class="card-icon">&#x1F9E0;</span> Socratic Tutor</h3>
+            <p>A guided tutor that asks leading questions to help students reason through AI concepts independently.</p>
           </article>
           <article class="card">
-            <h3>🚀 Lightweight Architecture</h3>
-            <p>Fast, scalable, and optimized for seamless learning experience.</p>
+            <h3><span class="card-icon">&#x1F4F7;</span> OCR Homework Helper</h3>
+            <p>Upload a photo of a handwritten or printed problem &#8212; the OCR engine extracts the text and sends it through the AI pipeline.</p>
+          </article>
+          <article class="card">
+            <h3><span class="card-icon">&#x1F4DA;</span> RAG Pipeline</h3>
+            <p>Retrieval-Augmented Generation using <strong>text-embedding-3-small</strong> embeddings to ground AI responses in course material.</p>
+          </article>
+          <article class="card">
+            <h3><span class="card-icon">&#x1F393;</span> Teacher / Admin Panel</h3>
+            <p>Real-time student roster, score analytics, and class performance charts exclusively for faculty accounts.</p>
           </article>
         </div>
       </section>
 
       <section class="section">
         <div class="section-header">
-          <h2>🎯 Vision</h2>
+          <h2>&#x1F3AF; Vision</h2>
         </div>
         <div class="panel-card highlight">
           <p style="font-size: 1.2rem; line-height: 1.8; text-align: center; color: var(--ink);">
-            To make AI education <strong>structured</strong>, <strong>practical</strong>, and <strong>accessible</strong> for students who want to build real-world AI skills.
+            To make AI education <strong>structured</strong>, <strong>practical</strong>, and <strong>accessible</strong> for every student who wants to build real-world AI skills &#8212; guided by intelligent tutoring and honest progress data.
           </p>
         </div>
       </section>
 
       <section class="section">
         <div class="section-header">
-          <h2>👨‍💻 Developed By</h2>
-        </div>
-        <div class="profile">
-          <div>
-            <h2 style="margin: 0;">Anjali Thakur</h2>
-            <p style="color: var(--muted); margin: 0.5rem 0 0;">Diploma in Computer Science & Engineering</p>
-          </div>
-          <a href="https://github.com/Anjalithakur256/ai-learning-web-app" class="button ghost" target="_blank" rel="noopener">GitHub Profile</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2>🛠 Tech Stack</h2>
+          <h2>&#x1F6E0; Tech Stack</h2>
         </div>
         <div class="stats">
           <div class="stat">
             <span class="stat-title">Frontend</span>
-            <span class="stat-value">HTML, CSS, JS</span>
+            <span class="stat-value">HTML / CSS / Vanilla JS</span>
           </div>
           <div class="stat">
-            <span class="stat-title">Backend</span>
-            <span class="stat-value">Firebase</span>
+            <span class="stat-title">Auth &amp; Database</span>
+            <span class="stat-value">Firebase v10.12</span>
           </div>
           <div class="stat">
-            <span class="stat-title">AI Assistant</span>
-            <span class="stat-value">Gemini API</span>
+            <span class="stat-title">AI Gateway</span>
+            <span class="stat-value">OpenRouter</span>
+          </div>
+          <div class="stat">
+            <span class="stat-title">AI Generation Model</span>
+            <span class="stat-value">gpt-oss-20b</span>
+          </div>
+          <div class="stat">
+            <span class="stat-title">Embedding Model</span>
+            <span class="stat-value">text-embedding-3-small</span>
+          </div>
+          <div class="stat">
+            <span class="stat-title">Charts</span>
+            <span class="stat-value">Chart.js</span>
           </div>
           <div class="stat">
             <span class="stat-title">Deployment</span>
-            <span class="stat-value">Vercel</span>
+            <span class="stat-value">Vercel (serverless)</span>
           </div>
+          <div class="stat">
+            <span class="stat-title">AI Proxy</span>
+            <span class="stat-value">/api/gemini &#8594; OpenRouter</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>&#x1F469;&#x200D;&#x1F4BB; Developed By</h2>
+        </div>
+        <div class="profile">
+          <div>
+            <h2 style="margin: 0;">Anjali Thakur</h2>
+            <p style="color: var(--muted); margin: 0.5rem 0 0;">Diploma in Computer Science &amp; Engineering</p>
+          </div>
+          <a href="https://github.com/Anjalithakur256/ai-learning-web-app" class="button ghost" target="_blank" rel="noopener">GitHub Profile</a>
         </div>
       </section>
     </main>
 
-    <div class="chat-widget" id="chatWidget">
-      <button class="chat-toggle" id="chatToggle">Chat</button>
-      <div class="chat-panel" aria-live="polite">
-        <header>
-          <div>
-            <strong>Gemini Tutor</strong>
-            <span>Ask quick AI questions</span>
-          </div>
-          <button id="chatClose">✕</button>
-        </header>
-        <div class="chat-messages" id="chatMessages"></div>
-        <form id="chatForm">
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask about today's topic..."
-            autocomplete="off"
-            required
-          />
-          <button type="submit">Send</button>
-        </form>
-        <div class="chat-settings">
-          <label for="chatKey">Gemini API Key</label>
-          <input type="password" id="chatKey" placeholder="Paste key" />
-        </div>
-      </div>
-    </div>
-
     <footer class="site-footer">
       <p>Built for focused AI learning.</p>
-      <p>Powered by Firebase & Gemini AI.</p>
-      <p>Deployable on Vercel.</p>
+      <p>Powered by Firebase, OpenRouter &amp; GPT (gpt-oss-20b).</p>
+      <p>Deployed on Vercel.</p>
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/chat.js"></script>
   </body>
 </html>
