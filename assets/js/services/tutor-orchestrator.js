@@ -19,7 +19,7 @@ class TutorOrchestratorService {
   /**
    * Master orchestration: Query → RAG → Socratic → AI → Response
    */
-  async processTutorQuery(userQuery, userId, topicId, currentStage = 0, masteryLevel = 0) {
+  async processTutorQuery(userQuery, userId, topicId, currentStage = 0, masteryLevel = 0, learningStyle = "Socratic") {
     const metricKey = `tutor_query_${Date.now()}`;
     logger.startMetric(metricKey);
 
@@ -39,13 +39,14 @@ class TutorOrchestratorService {
       const ragContext = ragResult.success ? ragResult.data.context : "";
       const sourceChunks = ragResult.success ? ragResult.data.chunks : [];
 
-      // Step 2: Build Socratic prompt
-      logger.debug("TUTOR", "Step 2: Building Socratic prompt");
+      // Step 2: Build prompt (style-aware)
+      logger.debug("TUTOR", "Step 2: Building prompt", { learningStyle });
       const prompt = this._buildSocraticPrompt(
         userQuery,
         ragContext,
         masteryLevel,
-        currentStage
+        currentStage,
+        learningStyle
       );
 
       // Step 3: Generate response via AI
@@ -120,10 +121,77 @@ class TutorOrchestratorService {
   /**
    * Build prompt with Socratic guidance
    */
-  _buildSocraticPrompt(query, ragContext, masteryLevel, stage) {
+  _buildSocraticPrompt(query, ragContext, masteryLevel, stage, learningStyle = "Socratic") {
     const stageName = this._getStageName(stage);
     const masteryLabel = this._getMasteryLabel(masteryLevel);
 
+    const masteryAdaptation = {
+      Beginner: "Beginner - Use simpler language, more examples, shorter explanations",
+      Intermediate: "Intermediate - Balance guidance and challenge, use clear explanations",
+      Advanced: "Advanced - Assume some knowledge, encourage deeper thinking",
+      Expert: "Expert - Focus on nuance, extensions, and connections to other concepts"
+    };
+
+    const ragSection = ragContext
+      ? `REFERENCE MATERIAL:\n${ragContext}\n\nDraw on this material when relevant.`
+      : "";
+
+    // ── Style-specific prompt templates ──────────────────────────────────────
+    if (learningStyle === "Explanatory") {
+      return `You are an expert AI tutor who gives thorough, detailed explanations.
+
+STUDENT MASTERY LEVEL: ${masteryLabel}
+${masteryAdaptation[masteryLabel]}
+
+Your role: Provide a complete, well-structured explanation. Cover the concept with context,
+background, and a step-by-step breakdown. Use headers or bullet points where they add clarity.
+Do not withhold information — the student learns best from detailed, complete answers.
+
+${ragSection}
+
+STUDENT QUERY:
+${query}
+
+Give a comprehensive, well-organised response that covers the topic thoroughly.`;
+    }
+
+    if (learningStyle === "Visual") {
+      return `You are an expert AI tutor who teaches through examples, analogies, and visual thinking.
+
+STUDENT MASTERY LEVEL: ${masteryLabel}
+${masteryAdaptation[masteryLabel]}
+
+Your role: Make abstract concepts tangible using real-world analogies, worked examples, and
+structured visuals (ASCII diagrams, tables, or labelled text layouts) wherever helpful.
+Each explanation should include at least one concrete example or analogy.
+
+${ragSection}
+
+STUDENT QUERY:
+${query}
+
+Focus on making the concept visual and relatable. Use examples, comparisons, and diagrams to illustrate.`;
+    }
+
+    if (learningStyle === "Concise") {
+      return `You are an expert AI tutor who gives short, sharp, direct answers.
+
+STUDENT MASTERY LEVEL: ${masteryLabel}
+${masteryAdaptation[masteryLabel]}
+
+Your role: Answer directly and concisely — no filler, no lengthy preamble. Get to the point
+immediately. Use 2–4 sentences unless the question genuinely requires more detail.
+If a follow-up is needed, ask ONE focused question.
+
+${ragSection}
+
+STUDENT QUERY:
+${query}
+
+Respond as briefly and precisely as possible.`;
+    }
+
+    // Default: Socratic (Question-Answer) ─────────────────────────────────────
     const stageInstructions = {
       CLARIFY: `Your role: Ask clarifying questions first. Do NOT provide the answer yet.
                Help the student understand what they're being asked.
@@ -135,7 +203,7 @@ class TutorOrchestratorService {
 
       GUIDE: `Your role: Break the problem into steps and ask leading questions.
               Walk through the reasoning process with the student.
-              Have them fill in the key insights themselves before summarizing.`,
+              Have them fill in the key insights themselves before summarising.`,
 
       VERIFY: `Your role: Ask the student to explain their reasoning back to you.
                This helps confirm understanding. Point out any gaps gently.
@@ -143,17 +211,10 @@ class TutorOrchestratorService {
 
       EXPLAIN: `Your role: Provide the complete, step-by-step explanation.
                 Now that they've engaged with the problem, give the full answer.
-                Summarize the key concepts and how they fit together.`
+                Summarise the key concepts and how they fit together.`
     };
 
-    const masteryAdaptation = {
-      Beginner: "Beginner - Use simpler language, more examples, shorter explanations",
-      Intermediate: "Intermediate - Balance guidance and challenge, use clear explanations",
-      Advanced: "Advanced - Assume some knowledge, encourage deeper thinking",
-      Expert: "Expert - Focus on nuance, extensions, and connections to other concepts"
-    };
-
-    const basePrompt = `You are an expert Socratic tutor using the ${stageName} approach.
+    return `You are an expert Socratic tutor using the ${stageName} approach.
 
 STUDENT MASTERY LEVEL: ${masteryLabel}
 ${masteryAdaptation[masteryLabel]}
@@ -161,22 +222,13 @@ ${masteryAdaptation[masteryLabel]}
 CURRENT STAGE: ${stageName}
 ${stageInstructions[stageName]}
 
-${
-  ragContext
-    ? `REFERENCE MATERIAL:
-${ragContext}
-
-Use this material to inform your response, but adapt your explanation to match the current Socratic stage.`
-    : ""
-}
+${ragSection}
 
 STUDENT QUERY:
 ${query}
 
 Respond in a way that is appropriate for the ${stageName} stage of the Socratic method.
 Be encouraging, clear, and help the student learn by discovery rather than direct answers.`;
-
-    return basePrompt;
   }
 
   /**

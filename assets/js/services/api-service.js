@@ -223,7 +223,7 @@ class ApiServiceFacade {
   /**
    * TUTOR/query - Process student query with RAG + Socratic
    */
-  async tutorQuery(query, userId, topicId, currentStage = 0, masteryLevel = 0) {
+  async tutorQuery(query, userId, topicId, currentStage = 0, masteryLevel = 0, learningStyle = "Socratic") {
     const metricKey = "api_tutor_query";
     logger.startMetric(metricKey);
 
@@ -235,7 +235,8 @@ class ApiServiceFacade {
       logger.info("API", "tutor/query called", {
         userId,
         topicId,
-        queryLength: query.length
+        queryLength: query.length,
+        learningStyle
       });
 
       const result = await tutorOrchestratorService.processTutorQuery(
@@ -243,7 +244,8 @@ class ApiServiceFacade {
         userId,
         topicId,
         currentStage,
-        masteryLevel
+        masteryLevel,
+        learningStyle
       );
 
       if (result.success) {

@@ -8,6 +8,7 @@ import {
   getDoc,
   doc,
   updateDoc,
+  setDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { onAuthStateChanged, signOut, sendPasswordResetEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -249,14 +250,15 @@ function renderRoleBlock(role, userData) {
   }
 }
 
-// ── Save profile ──────────────────────────────────────────────────────────────
-document.getElementById("saveProfileBtn")?.addEventListener("click", async () => {
+// ── Shared profile save logic ─────────────────────────────────────────────────
+async function doSaveProfile(msgEl) {
   const user = auth.currentUser;
   if (!user) return;
 
   const name = document.getElementById("editName")?.value?.trim();
   const grade = document.getElementById("editGrade")?.value;
-  const msgEl = document.getElementById("saveMsg");
+
+  if (msgEl) { msgEl.textContent = "Saving…"; msgEl.style.color = "var(--muted)"; msgEl.style.display = "inline"; }
 
   try {
     if (name) await updateProfile(user, { displayName: name });
@@ -266,7 +268,7 @@ document.getElementById("saveProfileBtn")?.addEventListener("click", async () =>
       grade: grade || "Undergraduate",
       lastActiveAt: serverTimestamp(),
     });
-    // Update hero UI
+    // Update hero UI instantly
     const nameEl = document.getElementById("profileName");
     const avatarEl = document.getElementById("profileAvatar");
     const detailNameEl = document.getElementById("detailName");
@@ -278,17 +280,40 @@ document.getElementById("saveProfileBtn")?.addEventListener("click", async () =>
     }
     if (detailNameEl) detailNameEl.textContent = name;
     if (detailGradeEl) detailGradeEl.textContent = grade;
-    if (msgEl) showSaveMsg(msgEl);
+    if (msgEl) { msgEl.textContent = "✓ Saved"; msgEl.style.color = "var(--accent-2)"; setTimeout(() => (msgEl.style.display = "none"), 2000); }
   } catch (e) {
     console.error("Save profile error:", e.message);
+    if (msgEl) { msgEl.textContent = "✗ Save failed"; msgEl.style.color = "#ff8080"; setTimeout(() => { msgEl.style.display = "none"; msgEl.style.color = ""; }, 3000); }
   }
+}
+
+// ── Live auto-save: name (debounced) & grade (immediate) ─────────────────────
+{
+  let _profileDebounce = null;
+  const msgEl = document.getElementById("saveMsg");
+
+  document.getElementById("editName")?.addEventListener("input", () => {
+    clearTimeout(_profileDebounce);
+    _profileDebounce = setTimeout(() => doSaveProfile(msgEl), 900);
+  });
+
+  document.getElementById("editGrade")?.addEventListener("change", () => {
+    clearTimeout(_profileDebounce);
+    doSaveProfile(msgEl);
+  });
+}
+
+// ── Save profile button (still works as manual trigger) ───────────────────────
+document.getElementById("saveProfileBtn")?.addEventListener("click", () => {
+  doSaveProfile(document.getElementById("saveMsg"));
 });
 
-// ── Save preferences ──────────────────────────────────────────────────────────
-document.getElementById("savePrefBtn")?.addEventListener("click", async () => {
+// ── Shared preferences save logic ────────────────────────────────────────────
+async function doSavePreferences(msgEl) {
   const style = document.getElementById("prefStyle")?.value;
   const subject = document.getElementById("prefSubjects")?.value;
-  const msgEl = document.getElementById("prefSaveMsg");
+
+  if (msgEl) { msgEl.textContent = "Saving…"; msgEl.style.color = "var(--muted)"; msgEl.style.display = "inline"; }
 
   try {
     await saveLearningProfile({
@@ -299,17 +324,32 @@ document.getElementById("savePrefBtn")?.addEventListener("click", async () => {
     const user = auth.currentUser;
     if (user) {
       const userRef = doc(db, "users", user.uid);
-      await updateDoc(userRef, {
+      await setDoc(userRef, {
         subjects: [subject],
         lastActiveAt: serverTimestamp(),
-      });
+      }, { merge: true });
     }
     setText("detailStyle", style);
     setText("detailSubjects", subject);
-    if (msgEl) showSaveMsg(msgEl);
+    if (msgEl) { msgEl.textContent = "✓ Preferences saved"; msgEl.style.color = "var(--accent-2)"; setTimeout(() => (msgEl.style.display = "none"), 2000); }
   } catch (e) {
     console.error("Save preferences error:", e.message);
+    if (msgEl) { msgEl.textContent = "✗ Save failed"; msgEl.style.color = "#ff8080"; setTimeout(() => { msgEl.style.display = "none"; msgEl.style.color = ""; }, 3000); }
   }
+}
+
+// ── Auto-save learning style on dropdown change ───────────────────────────────
+document.getElementById("prefStyle")?.addEventListener("change", () => {
+  doSavePreferences(document.getElementById("prefSaveMsg"));
+});
+
+document.getElementById("prefSubjects")?.addEventListener("change", () => {
+  doSavePreferences(document.getElementById("prefSaveMsg"));
+});
+
+// ── Save preferences button (still works as manual trigger) ──────────────────
+document.getElementById("savePrefBtn")?.addEventListener("click", () => {
+  doSavePreferences(document.getElementById("prefSaveMsg"));
 });
 
 // ── Password reset ────────────────────────────────────────────────────────────

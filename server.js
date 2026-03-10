@@ -36,10 +36,22 @@ function loadDotEnv(envPath) {
 const dotEnv = loadDotEnv(path.join(__dirname, "functions", ".env"));
 const OPENROUTER_API_KEY = dotEnv.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY;
 
+const PLACEHOLDER_PATTERNS = ["your-openrouter-api-key", "your-api-key", "placeholder", "sk-or-v1-xxx"];
+
 if (!OPENROUTER_API_KEY) {
   console.error("❌  OPENROUTER_API_KEY not found.");
   console.error("    Add it to functions/.env:\n");
   console.error("    OPENROUTER_API_KEY=sk-or-v1-...\n");
+  console.error("    Get your key at: https://openrouter.ai/keys\n");
+  process.exit(1);
+}
+
+if (PLACEHOLDER_PATTERNS.some(p => OPENROUTER_API_KEY.toLowerCase().includes(p.toLowerCase()))) {
+  console.error("❌  OPENROUTER_API_KEY is still set to the placeholder value.");
+  console.error(`    Current value: "${OPENROUTER_API_KEY}"`);
+  console.error("\n    ➜  Replace it with your real key in  functions/.env :");
+  console.error("       OPENROUTER_API_KEY=sk-or-v1-<your-actual-key>\n");
+  console.error("    Get your key at: https://openrouter.ai/keys\n");
   process.exit(1);
 }
 

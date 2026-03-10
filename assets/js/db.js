@@ -202,8 +202,12 @@ async function saveLearningProfile(payload) {
     updatedAt: new Date().toISOString()
   };
 
+  // Cache locally — uid-prefixed for accuracy, generic key as fallback for pre-auth reads
+  const lsKey = user ? `learningProfile_${user.uid}` : "learningProfile";
+  localStorage.setItem(lsKey, JSON.stringify(profile));
+  localStorage.setItem("learningProfile", JSON.stringify(profile));
+
   if (!user) {
-    localStorage.setItem("learningProfile", JSON.stringify(profile));
     return profile;
   }
 
@@ -219,15 +223,23 @@ async function saveLearningProfile(payload) {
 
 async function getLearningProfile() {
   const user = auth.currentUser;
-  if (!user) {
-    const stored = localStorage.getItem("learningProfile");
-    return stored ? JSON.parse(stored) : null;
+
+  // Fast path: check localStorage cache first
+  const lsKey = user ? `learningProfile_${user.uid}` : "learningProfile";
+  const cached = localStorage.getItem(lsKey);
+  if (cached) {
+    try { return JSON.parse(cached); } catch (_) { /* ignore */ }
   }
+
+  if (!user) return null;
 
   try {
     const profileSnap = await getDoc(doc(db, "learningProfiles", user.uid));
     if (profileSnap.exists()) {
-      return profileSnap.data();
+      const data = profileSnap.data();
+      // Populate cache for next time
+      localStorage.setItem(lsKey, JSON.stringify(data));
+      return data;
     }
   } catch (error) {
     console.warn("Error fetching learning profile:", error.message);

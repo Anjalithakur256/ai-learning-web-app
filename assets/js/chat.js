@@ -1,6 +1,7 @@
 import { api } from "./services/api-service.js";
 import logger from "./services/logger.js";
-import { auth } from "./db.js";
+import { auth, getLearningProfile } from "./db.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { extractTextFromImage, formatHomeworkProblem } from "./ocr-processor.js";
 
 const chatForm = document.getElementById("chatForm");
@@ -13,7 +14,8 @@ const state = {
   topicId: null,
   sessionId: null,
   currentStage: 0,
-  masteryLevel: 0
+  masteryLevel: 0,
+  learningStyle: "Socratic"
 };
 
 function resolveTopicId() {
@@ -78,6 +80,14 @@ async function initializeSession() {
   state.topicId = resolveTopicId();
   state.userId = auth.currentUser?.uid || "anonymous";
 
+  // Load the student's preferred learning style
+  try {
+    const profile = await getLearningProfile();
+    if (profile?.preferredLearningStyle) {
+      state.learningStyle = profile.preferredLearningStyle;
+    }
+  } catch (_) { /* use default */ }
+
   // API key is stored server-side — no client-side key needed.
   const health = await api.systemHealth();
   if (!health.success) {
@@ -116,14 +126,16 @@ async function callGemini(message) {
 
   const typingIndicator = appendTypingIndicator();
 
-  const result = await api.tutorQuery(
+  const textPromise = api.tutorQuery(
     message,
     state.userId || "anonymous",
     state.topicId || "ai-basics",
     state.currentStage,
-    state.masteryLevel
+    state.masteryLevel,
+    state.learningStyle
   );
 
+  const result = await textPromise;
   typingIndicator?.remove();
 
   if (!result.success) {
@@ -138,6 +150,7 @@ async function callGemini(message) {
 
   const responseText = result.data?.response || "I could not generate a response.";
   appendMessage(responseText);
+
   state.currentStage = result.data?.nextStage ?? state.currentStage;
   state.masteryLevel = result.data?.masteryLevel ?? state.masteryLevel;
 
@@ -187,4 +200,12 @@ window.callGemini = callGemini;
 window.extractTextFromImage = extractTextFromImage;
 window.formatHomeworkProblem = formatHomeworkProblem;
 
-initializeSession();
+// Wait for Firebase auth to resolve before initialising so auth.currentUser
+// is available when getLearningProfile() reads the uid-prefixed localStorage key.
+let _sessionInitialised = false;
+onAuthStateChanged(auth, (user) => {
+  if (!_sessionInitialised) {
+    _sessionInitialised = true;
+    initializeSession();
+  }
+});
