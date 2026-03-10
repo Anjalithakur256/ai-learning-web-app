@@ -112,6 +112,20 @@ async function initializeSession() {
 
 
 async function callGemini(message) {
+  // Always read the latest saved learning style before each query
+  try {
+    const lsKey = state.userId && state.userId !== "anonymous"
+      ? `learningProfile_${state.userId}`
+      : "learningProfile";
+    const cached = localStorage.getItem(lsKey) || localStorage.getItem("learningProfile");
+    if (cached) {
+      const profile = JSON.parse(cached);
+      if (profile?.preferredLearningStyle) {
+        state.learningStyle = profile.preferredLearningStyle;
+      }
+    }
+  } catch (_) { /* keep existing state.learningStyle */ }
+
   const health = await api.systemHealth();
   if (!health.success) {
     appendMessage("System is unavailable. Please refresh and try again.");

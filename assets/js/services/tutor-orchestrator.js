@@ -155,24 +155,6 @@ ${query}
 Give a comprehensive, well-organised response that covers the topic thoroughly.`;
     }
 
-    if (learningStyle === "Visual") {
-      return `You are an expert AI tutor who teaches through examples, analogies, and visual thinking.
-
-STUDENT MASTERY LEVEL: ${masteryLabel}
-${masteryAdaptation[masteryLabel]}
-
-Your role: Make abstract concepts tangible using real-world analogies, worked examples, and
-structured visuals (ASCII diagrams, tables, or labelled text layouts) wherever helpful.
-Each explanation should include at least one concrete example or analogy.
-
-${ragSection}
-
-STUDENT QUERY:
-${query}
-
-Focus on making the concept visual and relatable. Use examples, comparisons, and diagrams to illustrate.`;
-    }
-
     if (learningStyle === "Concise") {
       return `You are an expert AI tutor who gives short, sharp, direct answers.
 
